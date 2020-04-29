@@ -1,0 +1,62 @@
+<!-- <div class="content-section-bx" ng-init = "load()">
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-title">
+                    <h4>Lab Tests Added</h4>
+                </div>
+
+			<div class= "profile-details">
+				<div class= "search-class">
+				</div>
+				<div class= "appointment-top-box" >
+					<ul>
+						<li class= "diag-li" ng-repeat = "x in tests">
+							<strong class= "diagnostic-strong">
+								<h3>{{x.test_name}}</h3>
+                                <p>Results in: {{x.result_time}}</p>
+                                <p>Fees : {{x.fees}}</p>
+							</strong>
+                                                <p><a ng-click = "delTest(x.id)"><i style="color: red;line-height: 26px;" class="fas fa-trash-alt"></i></a></p>
+                    </li>
+					</ul>
+                </div>
+			</div>
+            </div>
+        </div>
+        <center>
+            <em class= "diagnostic-em"><a  class="payment-class-doc-trans" href="#!addtest">Add New Test</a></em>
+        </center>
+    </div>
+    </div> -->
+
+    
+    <div class="card-title">
+            <h4>Lab Tests Added</h4>
+        </div>
+
+    <div class="row" ng-init = "load()">
+        <form class="col s12 form-box-width my-profile-class">
+
+                <md-select placeholder="Select Lab Test" ng-model="labid" class="md-no-underline">
+                    <md-option ng-repeat = "x in avlabs" value="{{x.id}}">{{x.test_name}}</md-option>
+                </md-select>
+
+          <div class="row">
+            <div class="input-field col s12">
+              <i class="material-icons prefix icon-color">person</i>
+              <input style= "color: #090000 !important;" ng-model = "time" placeholder="Result Time" type="text" class="validate">
+            </div>
+            <div class="input-field col s12">
+              <i class="material-icons prefix icon-color">person</i> 
+              <input style= "color: #090000 !important;" ng-model = "fees" placeholder="Fees" type="text" class="validate">
+            </div>
+          </div>
+          
+        </form>
+        <center>
+            <button><a href = "#!alluploads">Back</a></button>
+            <button ng-click = "addtest()"><a>Add</a></button>
+        </center>
+      </div>

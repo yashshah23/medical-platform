@@ -1,0 +1,80 @@
+<div>
+	<h6>{{data.form.title.toUpperCase().trim()}}</h6>
+	<hr>
+	<br>
+
+	<div style="overflow-x:auto;">
+		<table>
+			<thead>
+				<!-- <tr>
+					<th style="padding: 15px 20px;" ng-if="CurrentUserAdmin || CurrentUserEditor">Action</th>
+					<th style="padding: 15px 20px;" ng-repeat="x in data.form_default_fields" ng-if="data.form_default_fields">{{x.default_field.title}}</th>
+					<th style="padding: 15px 20px;" ng-repeat="x in data.form_fields |orderBy:'seq'">{{x.field.title}}</th>
+					<th style="padding: 15px 20px;" ng-if="data.form.reasonForUpdate">Reason</th>
+				</tr> -->
+				<tr>
+					<th style="padding: 15px 20px;" ng-if="CurrentUserAdmin || CurrentUserEditor">Action</th>
+					<th style="padding: 15px 20px;" ng-repeat="x in data.form_default_fields" ng-if="x.default_field.title">{{x.default_field.title}}</th>
+					<th style="padding: 15px 20px;" ng-repeat="x in data.form_fields " ng-if="data.form_fields.length" >{{x.field.title}}</th>
+					<th style="padding: 15px 20px;" ng-if="data.form.reasonForUpdate">Reason</th>
+				</tr>
+			</thead>
+
+			<tbody>
+
+				<tr ng-repeat="x in data.entries" ng-if="data.entry_default_values[x.id] || data.entry_values[x.id]">
+					<td style="padding: 15px 20px;" ng-if="CurrentUserAdmin || CurrentUserEditor">
+
+						<abbr title="Edit"><a class="btn-floating green" href="#!forms/{{x.id}}/records/edit">
+							<i class="material-icons Large">edit</i>
+						</a></abbr>
+
+						<abbr title="Delete"><a class="btn-floating red" href="" ng-click="launchDelete(x)">
+							<i class="material-icons Large">delete</i>
+						</a></abbr>
+					</td>
+
+					<!-- <td style="padding: 15px 20px;" ng-repeat="z in data.default_fields">{{data.entry_default_values[x.id][z.title]}}</td> -->
+					<!-- <td style="padding: 15px 20px;" ng-repeat="y in data.form_fields"><p ng-repeat="d in (data.entry_values[x.id][y.field.title]).split(',')">{{d}}</p></td> -->
+
+					<!-- <td style="padding: 15px 20px;" ng-repeat="z in data.default_fields">
+								<p ng-show=" z.field_type.id == 6" ng-repeat="d in (data.entry_default_values[x.id][z.title]).split(',')">{{d |date:"dd/MM/yyyy"}}</p>
+							 <p ng-show=" z.field_type.id != 6" ng-repeat="d in (data.entry_default_values[x.id][z.title]).split(',')">{{d}}</p>
+						</td>
+						<td style="padding: 15px 20px;" ng-repeat="y in data.form_fields">
+								<p ng-show=" y.field.field_type.id == 6" ng-repeat="d in (data.entry_values[x.id][y.field.title]).split(',')">{{d |date:"dd/MM/yyyy"}}</p>
+								<p ng-show=" y.field.field_type.id != 6" ng-repeat="d in (data.entry_values[x.id][y.field.title]).split(',')">{{d}}</p>
+						</td>   -->
+
+					<td style="padding: 15px 20px;" ng-repeat="z in data.form_default_fields">
+						<p ng-show=" z.field_type.id == 6" ng-repeat="d in (data.entry_default_values[x.id][z.default_field.id]).split(',')">{{d |date:"dd/MM/yyyy"}}</p>
+						<p ng-show=" z.field_type.id == 7" ng-repeat="d in (data.entry_default_values[x.id][z.default_field.id]).split(',')">{{d |date:"HH:mm"}}</p>
+						<p ng-show=" z.field_type.id == 12" ng-repeat="d in (data.entry_default_values[x.id][z.default_field.id]).split(',')">{{d |date:"HH:mm"}}</p>
+						<p ng-show=" z.field_type.id != 6 && z.field_type.id != 7" ng-repeat="d in (data.entry_default_values[x.id][z.default_field.id]).split(',')">{{d}}</p>
+					</td>
+
+				
+
+					<td style="padding: 15px 20px;" ng-repeat="y in data.form_fields">
+						<p ng-show=" y.field.field_type.id == 6" ng-repeat="d in (data.entry_values[x.id][y.field.title]).split(',') track by $index">{{d |date:"dd/MM/yyyy"}}</p>
+						<p ng-show=" y.field.field_type.id == 7" ng-repeat="d in (data.entry_values[x.id][y.field.title]).split(',') track by $index">{{d |date:"HH:mm"}}</p>
+						<p ng-show=" y.field.field_type.id != 7 && y.field.field_type.id != 6" ng-repeat="d in (data.entry_values[x.id][y.field.title]).split(',') track by $index">{{d}}</p>
+					</td>
+					<td ng-if="data.form.reasonForUpdate">
+						<p>{{x.reason}}</p>
+					</td>
+
+					<!-- Above <td>s added by Sanjoli / 20180614 -->
+				</tr>
+			</tbody>
+			
+		</table>
+
+	</div>
+	<div class="fixed-action-btn">
+		<abbr title="Back"><a class="btn-floating btn-large teal" href="#!forms">
+			<i class="large material-icons">arrow_back</i>
+		</a></abbr>
+	</div>
+	<modal options="modalOptions"></modal>
+</div>

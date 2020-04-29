@@ -1,0 +1,39 @@
+<div class="content-section-bx" ng-init = "load()">
+    <!-- <h2>
+      <a href="#!lab_select" class="left-back-icon">
+        <i class="material-icons back-icon">navigate_before</i>
+      </a>
+      <em>
+        All Tests
+      </em>
+    </h2> -->
+    <h2>
+        Suggest Lab-Test 
+    </h2>
+
+    <div class= "profile-details">
+        <div class= "search-class">
+            <div class="wrap">
+                <div class="search">
+                <input type="text" class="searchTerm" ng-model = "srch" ng-change = "searching()" placeholder="Search...">
+                <i class="fa fa-search search-icon"></i>
+                </div>
+            </div>
+        </div>
+        <div class= "appointment-top-box" >
+            <ul>
+                <li class= "diag-li" ng-repeat = "x in tests">
+                    <strong class= "diagnostic-strong">
+                        <h3>{{x.test_name}}</h3>
+                        <p>Results in: {{x.result_time}}</p>
+                    </strong>
+                                        <em class= "diagnostic-em"><a  class="payment-class-doc" ng-if = "!hasTest(x.id)" ng-click = "addTest(x.id)">Suggest</a></em>
+                                        <em class= "diagnostic-em"><a  class="payment-class-doc-trans" ng-if = "hasTest(x.id)">Suggested</a></em>
+            </li>
+            </ul>
+        </div>
+    </div>
+    <!--<div class= "cart-save-button">
+<a href= "pickupaddress.html">Next</a>
+</div>-->
+</div>

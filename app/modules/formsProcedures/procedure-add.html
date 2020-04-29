@@ -1,0 +1,45 @@
+<div ng-init="load()" class="card-panel">
+	<div>
+		<h6>PROCEDURE DETAILS </h6>
+		<hr/>
+		<div class="row">
+			<form class="col s12">
+				<div class="row">
+					<div class="input-field col s12">
+						
+						<label for="title"><span style="color:red">*</span>Title</label>
+						<input id="title" type="text" class="validate" ng-model="data.title" required autofocus>
+						<span style="color:red" ng-show="formBuilder.name.$dirty && formBuilder.name.$invalid">
+							<span ng-show="formBuilder.name.$error.required">Required*</span>
+						</span>
+					</div>
+				</div>
+	
+				<div class="row">
+					<div class="input-field col s12">
+						<input type="text" id="forms" class="autocomplete">
+						<label for="forms">Forms</label>
+					</div>
+				</div>
+				<div class="row">
+					<ul class="collection">
+						<li class="collection-item" ng-repeat="x in addedForms">{{x.title}} <i class="close material-icons" style="float:right" ng-click="unselectForm(x)">close</i></li>
+						  
+					</ul>
+				</div>
+			</form>
+	
+			<div class="fixed-action-btn">
+				<a class="btn-floating btn-large teal" href="">
+					<i class="large material-icons">menu</i>
+				</a>
+				<ul>
+					<li><a class="btn-floating yellow darken-4" ng-click="cancelProcedure()"><i class="material-icons">cancel</i></a></li>
+					<li ng-show="!id"><a class="btn-floating green darken-4" ng-click="saveProcedure()"><i class="material-icons">save</i></a></li>
+					<li ng-show="id"><a class="btn-floating green darken-4 btn tooltipped" ng-click="save()" ><i class="material-icons">save </i></a></li>
+				</ul>
+			</div>
+			<modal options="modalOptions"></modal>
+		</div>
+	</div>
+	</div>

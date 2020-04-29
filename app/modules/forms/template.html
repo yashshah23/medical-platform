@@ -1,0 +1,90 @@
+<div ng-init="load()">
+	<h6>FORMS</h6>
+	<hr />
+	<div class="row">
+		<div class=" input-field col s6">
+			<input style="margin-left: -12px;" ng-hide="data.list.length==0" type="text" ng-model="searchForms"
+				placeholder="Search by Form">
+		</div>
+	</div>
+	<!--<div ng-repeat="opt in categories track by opt.title">-->
+	<!--	<p>{{opt.id}}</p>-->
+	<!--</div>-->
+	<div class="row">
+		<div class=" input-field col s6">
+			<md-input-container class="fill-width" style="margin-top:11px;">
+				<!-- <label><span style="color:red" ng-if="x.is_required">*</span>{{opt.title}}</label> -->
+				<md-select style="margin-left: -12px;" ng-hide="data.list.length==0" ng-model="searchText"
+					placeholder="All">
+					<md-option ng-value="opt.id">All</md-option>
+					<md-option ng-value="opt.id" ng-repeat="opt in categories track by opt.title">{{ opt.title }}
+					</md-option>
+				</md-select>
+			</md-input-container>
+		</div>
+	</div>
+	<!--<div ng-repeat='x in data.list'>-->
+	<!--	<p>{{x.title}}</p>-->
+	<!--</div>-->
+	<!--<p ng-if="data.list.length > 0">{{data.list[0].title}}</p>-->
+	<table>
+		<thead>
+		</thead>
+		<tbody>
+			<!-- class="disabled-a" --> 
+			<tr ng-repeat='x in validForms.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage)) | filter : {categoryId: searchText} |  filter : {title:searchForms} track by $index'>
+				<td style="font-size: 14px;" ng-if="currentUser == 'admin' || currentUser == 'creator'">
+					<!-- <a href='#!form/{{x.id}}' ng-class="x.UserId.split(',').includes(currentUserId.toString()) || roleOfCurrentUser ? '':'disabled-a'">{{x.title}}</a> -->
+					<a href='#!/forms/{{x.id}}'>{{x.title}}</a>
+				</td>
+				<td style="font-size: 14px;" ng-if="currentUser == 'editor' || currentUser == 'viewer'">
+					<!-- <a href='#!form/{{x.id}}' ng-class="x.UserId.split(',').includes(currentUserId.toString()) || roleOfCurrentUser ? '':'disabled-a'">{{x.title}}</a> -->
+					{{x.title}}
+				</td>
+				<td style="float:right">
+					<div>
+						<span>
+							<abbr title="Records">
+								<a class="btn-floating yellow darken-4" href="#!forms/{{x.id}}/records">
+									<i class="material-icons">sort</i>
+								</a></abbr>
+						</span>
+						<span ng-if="CurrentUserAdmin">
+							<abbr title="Edit"><a class="btn-floating green" href="#!forms/{{x.id}}/edit">
+									<i class="material-icons">mode_edit</i>
+								</a></abbr>
+						</span>
+						<span ng-if="CurrentUserAdmin">
+							<abbr title="Copy"><a ng-click="copy($event,x)" style="background-color: #5a6ae0;" class="btn-floating darken-4">
+								<i class="material-icons">content_copy</i>
+							</a></abbr>
+						</span>
+						<span ng-if="CurrentUserAdmin">
+							<abbr title="Delete"><a class="btn-floating red" href="" ng-click="launchDelete(x)">
+									<i class="material-icons">delete</i>
+								</a></abbr>
+						</span>
+						<!--<span><a class="btn-floating blue"><i class="material-icons">attach_file</i></a></span>-->
+					</div>
+					<!--<a class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">add</i></a>-->
+				</td>
+			</tr>
+		</tbody>
+	</table>
+
+	<modal options="modalOptions"></modal>
+
+	<!-- Add Button -->
+	<div class="fixed-action-btn" ng-if="CurrentUserAdmin">
+		<abbr title="Add"><a class="btn-floating btn-large teal" href="#!forms/add">
+				<i class="large material-icons">add</i>
+			</a></abbr>
+	</div>
+
+</div>
+	
+<center>
+	 
+		<pagination total-items="totalItems"  ng-show = "data.list.length>10" class="pagination-sm" ng-model="currentPage" max-size="maxSize" boundary-links="true" rotate="false" num-pages="numPages" items-per-page="itemsPerPage"></pagination>
+	
+	</center>

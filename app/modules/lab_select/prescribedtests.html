@@ -1,0 +1,155 @@
+<!-- 
+
+	<div class="content-section-bx" ng-init = "load()">
+			<h2 style="margin-bottom: -6px;">
+			  <a href="#!lab_select" class="left-back-icon">
+				<i class="material-icons back-icon">navigate_before</i>
+			  </a>
+			  <em>
+				Prescribed Lab Test
+			  </em>
+			</h2>
+
+			<div class= "profile-details">
+			<ul class="content-tabs">
+					<li name="tab1" class="tab-link width-50-percent tabactive" >Suggested Lab Test</li>
+			</ul>
+
+			<div id="tab-1" class="tab-content current oppointments-tab-btm">
+				<div class= "appointment-top-box">
+					<div class= "appointment-top-box">
+					<ul>
+						<li ng-repeat = "x in prescribed_tests" class= "diag-li">
+							<strong class= "diagnostic-strong">
+								<h3>{{x.lab_tests.test_name}}</h3>
+								<p>Results in: {{x.lab_tests.result_time}}</p>
+								<p>By Doctor: {{x.doctor.doctor_name}}</p>
+							</strong>
+							
+							<em class= "diagnostic-em"><a  class="payment-class-doc" ng-if = "!hasTest(x.lab_tests.id)" ng-click = "addTest(x.lab_tests.id)">Add</a></em>
+							<em class= "diagnostic-em"><a  class="payment-class-doc-trans" ng-if = "hasTest(x.lab_tests.id)">Added</a></em>
+							<em class= "diagnostic-em"></em></li>
+						</div>
+				</div>
+			  </div>
+		</div>
+	</div> -->
+
+
+<head>
+	<script>
+			$(document).ready(function(){
+		
+		$('ul.content-tabs li').click(function(){
+			var tab_id = $(this).attr('data-tab');
+	
+			$('ul.content-tabs li').removeClass('current');
+			$('.tab-content').removeClass('current');
+	
+			$(this).addClass('current');
+			$("#"+tab_id).addClass('current');
+		})
+	
+	})
+		</script>
+</head>
+
+
+	<div class="content-section-bx" ng-init = "load()">
+			<h2 style="margin-bottom: -6px;">
+			  <a href="lab-selecttype.html" class="left-back-icon">
+				<i class="material-icons back-icon">navigate_before</i>
+			  </a>
+			  <em>
+				Prescribed Lab Test
+			  </em>
+			</h2>
+
+			<div class= "profile-details">
+			<ul class="content-tabs">
+					<li name="tab1" class="tab-link width-50-percent tabactive" data-tab="tab-1" onclick="activeTab('tab1')">Suggested Lab Test</li>
+					<li name="tab2" class="tab-link width-50-percent" data-tab="tab-2" onclick="activeTab('tab2')">Upload Test Prescription</li>
+				<!-- <li name="tab1" class="tab-link width-50-percent  tabactive" data-tab="tab-1" onclick="activeTab('tab1')">Upcoming</li>
+				<li name="tab2" class="tab-link-1 width-50-percent" data-tab="tab-2" onclick="activeTab('tab2')">Past</li> -->
+			</ul>
+
+			<div id="tab-1" class="tab-content current oppointments-tab-btm">
+				<div class= "appointment-top-box">
+					<div class= "appointment-top-box">
+					<ul>
+						<li  ng-repeat = "x in prescribed_tests" class= "diag-li">
+							<strong class= "diagnostic-strong">
+								<h3>{{x.lab_tests.test_name}}</h3>
+								<p>Results in: {{x.lab_tests.result_time}}</p>
+								<p>By Doctor: {{x.doctor.doctor_name}}</p>
+							</strong>
+							
+							<em class= "diagnostic-em"><a  class="payment-class-doc" ng-if = "!hasTest(x.lab_tests.id)" ng-click = "addTest(x.lab_tests.id)">Add</a></em>
+							<em class= "diagnostic-em"><a  class="payment-class-doc-trans" ng-if = "hasTest(x.lab_tests.id)">Added</a></em>
+							<em class= "diagnostic-em"></em></li>
+							</ul>
+						</div>
+				</div>
+					<div class="add-button2">
+						<a href="lab-fee.html">Continue</a>
+					</div>
+			  </div>
+		<div id="tab-2" class="tab-content oppointments-tab-btm">
+			<div class= "pres-details">
+				<div class= "add-button2" style="margin-top:20px;margin-bottom: 20px;">
+						<div class="file-upload">
+								<input type = "file" file-model = "myFile"/>
+							<!-- <label for="upload" class="file-upload__label"><i class="fas fa-upload" style="padding-right: 5px;"></i> Upload Prescription</label>
+							<input id="upload" file-model = "file" class="file-upload__input" type="file" name="file-upload"> -->
+							<button ng-click = "uploadFunction()">Upload</button>
+						</div>
+						<div>
+								<a ng-href="{{url}}" download="yourFilename">Download</a>
+						</div>
+				</div>
+				<p style="text-align:center;margin: -35px 0 0 0;">Please upload the valid prescription. A valid prescription contains: </p> 
+				<ul>
+					<li><h3>Doctor Detail</h3>
+					<i class="fas fa-user-md"></i></li>	
+					<li><h3>Patient Detail</h3>
+					<i class="far fa-file-alt"></i></li>	
+					<li><h3>Date of Prescription</h3>
+					<i class="fas fa-calendar-alt"></i></li>		
+				</ul>
+
+			<label class= "label-consultation">Who is the Patient?</label>
+			<div class="row inner-page-bx-width" style="width: 100%; margin: 0 auto; display: table;">
+			<div class="col s12" style= "padding: 0;">
+			  <!-- Tab links -->
+			  <div class="tab" style= "margin-top: 20px;width: 96% !important;display: table;margin: 20px 0px 20px 15px;">
+				<button class="tablinks active" onclick="openCity(event, 'London')" style= "width: 27%;">Myself</button>
+				<button class="tablinks" onclick="openCity(event, 'Paris')" style= "width: 27%;">Wife</button>
+				<button class="tablinks" onclick="openCity(event, 'Tokyo')" style= "width: 27%;">Mother</button>
+			  </div>
+	  
+				<label for="subject">Additional Comment</label>
+				<textarea id="subject" name="subject"></textarea>
+				<div class="add-button2">
+						<a href="" ng-click = "upload()">Continue</a>
+					</div>
+		</div>
+			</div>
+	</div>
+	</div>
+</div>
+	<script src="https://storage.googleapis.com/code.getmdl.io/1.0.0/material.min.js"></script>
+	<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+	<script type="text/javascript" src="js/materialize.min.js"></script>
+	<script>
+			function activeTab(tabName) {
+					var i, tabcontent;
+					tabcontent = document.getElementsByClassName("tab-link");
+					for (i = 0; i < tabcontent.length; i++) {
+						if (tabcontent[i].attributes.name.value === tabName) {
+						tabcontent[i].className += !tabcontent[i].className.includes('tabactive')? " tabactive": '';
+						} else {
+							tabcontent[i].className= tabcontent[i].className.replace(' tabactive', '');
+						}
+					}
+				}
+			</script>

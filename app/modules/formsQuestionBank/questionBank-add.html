@@ -1,0 +1,79 @@
+<div ng-init="load()" class="card-panel">
+	<h6> QUESTION DETAILS</h6>
+	<hr/>
+	<div class="row">
+		<form class="col s12">
+			<div class="row">
+				<div class="input-field col s8">
+					<input id="title" ng-blur = "uniqueTitle()" type="text" class="validate" ng-model="data.title">
+					<label for="title">Title</label>
+				</div>
+				<div class="input-field col s3">
+					<select ng-model="data.field_type" id="fieldTypes" ng-change="questionBankTypeChanged(remaningfields)">
+						<option value="" disabled selected>Choose your option</option>
+						<option ng-repeat="x in fieldTypes track by x.id" value="{{x}}">{{x.title}}</option>
+					</select>
+					<label>Question Type</label>
+				</div>
+				<!--<div class="input-field col s3">-->
+				<!--	<md-input-container class="md-block" flex-gt-xs>-->
+				<!--		<label>Question Type</label>-->
+
+				<!--		<md-select ng-model="data.field_type" id="fieldTypes" ng-change="questionBankTypeChanged(remaningfields)">-->
+				<!--			<md-option value="" disabled selected>Choose your option</md-option>-->
+				<!--			<md-option ng-value="x" ng-repeat="x in fieldTypes track by x.id">{{ x.title }}</md-option>-->
+				<!--		</md-select>-->
+				<!--	</md-input-container>-->
+				<!--</div>-->
+			</div>
+			<div class="row" ng-show="data.field_type && selectedFieldTypeCategory =='list'">
+				<div class="input-field col s11">
+					<input id="item" type="text" class="validate" ng-keyup="$event.keyCode == 13 ? addField(datasource.newItem) : ''"  ng-model="datasource.newItem">
+					<label for="item">Item</label>
+				</div>
+				<div class="input-field col s1">
+					<abbr title="Add"><a class="btn-floating blue darken-4" href="" ng-click="addField(datasource.newItem)">
+						<i class="material-icons">add</i>
+					</a></abbr>
+				</div>
+			</div>
+			<div class="row" style="margin-top: -36px;">
+				<label class="input-field col s12" ng-show="selectedFieldTypeCategory == 'file'" style="color: blue;margin-top: -5px;">
+					Allowed extensions are: pdf, doc/docx, xls/xlsx, ppt/pptx, csv, jpg/jpeg, png
+				</label>
+			</div>
+		</form>
+		
+
+		<ul  class="collection" ng-show="data.field_type && selectedFieldTypeCategory =='list'">
+			<li class="collection-item" ng-repeat="x in fields">{{x.title}}
+				<span>
+					<abbr title="Close"><a class="btn-floating red btn-small" style="float:right" ng-click="fields.splice($index,1);">
+						<i class="material-icons">close</i>
+					</a></abbr>
+				</span>
+			</li>
+		</ul>
+		<ul  class="collection" ng-show="data.field_type && selectedFieldTypeCategory =='list'">
+			<li class="collection-item" ng-repeat="x in remaningfields">{{x.title}}
+				<span>
+					<abbr title="Close"><a class="btn-floating red btn-small" style="float:right" ng-click="fields.splice($index,1);">
+						<i class="material-icons">close</i>
+					</a></abbr>
+				</span>
+			</li>
+		</ul>
+
+		<div class="fixed-action-btn">
+			<a class="btn-floating btn-large teal" href="">
+				<i class="large material-icons">menu</i>
+			</a>
+			<ul>
+				<li><abbr title="Cancel"><a class="btn-floating yellow darken-4" ng-click="cancelForm()"><i class="material-icons">cancel</i></a></abbr></li>
+				<li ng-show="!id"><abbr title="Save"><a class="btn-floating green darken-4" ng-click="saveQuestionBank()" ng-disabled="isDisabled"><i class="material-icons">save</i></a></abbr></li>				
+				<li ng-show="id"><abbr title="Save"><a class="btn-floating green btn tooltipped darken-4" ng-click="save()" ><i class="material-icons">save</i></a></abbr></li>
+			</ul>
+		</div>
+		<modal options="modalOptions"></modal>
+	</div>
+</div>

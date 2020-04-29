@@ -1,0 +1,55 @@
+<div class="content-section-bx" ng-init = "load()">
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-title">
+                    <h4>Lab Tests Added</h4>
+                </div>
+
+			<div class= "profile-details">
+				<div class= "search-class">
+					<!-- <div class="wrap">
+						<div class="search">
+						<input type="text" class="searchTerm" ng-model = "srch" ng-change = "searching()" placeholder="Search...">
+						<i class="fa fa-search search-icon"></i>
+						</div>
+					</div> -->
+				</div>
+				<div class= "appointment-top-box" >
+					<ul>
+						<li class= "diag-li" ng-repeat = "x in avlabs">
+							<strong class= "diagnostic-strong">
+								<h3>{{x.lab_tests.test_name}}</h3>
+                                <p>Results in: {{x.result_time}}</p>
+                                <p>Fees : {{x.fees}}</p>
+							</strong><!-- 
+												<em class= "diagnostic-em"><a  class="payment-class-doc" ng-if = "!hasTest(x.id)" >Edit</a></em> -->
+                                                <a href = "" ng-click = "delTest(x.id)"><i style="color: red;line-height: 26px;" class="fas fa-trash-alt"></i></a>
+                                                
+                    </li>
+					</ul>
+                </div>
+			</div>
+                <!-- <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <tbody  ng-repeat = "x in tests">
+                                <tr>
+                                    <td></td>
+                                    <td><b> Test Name : </b><br> {{x.test_name}}</td>
+                                    <td> <b> Result Expected Time : </b><br> {{x.result_time}}</td>
+                                    <td><b> Fees : </b><br> {{x.fees}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div> -->
+            </div>
+        </div>
+        <center>
+            <em class= "diagnostic-em"><a  class="payment-class-doc-trans" href="#!addlabtech">Add New Test</a></em>
+        </center>
+        <!-- /# column -->
+    </div>
+    </div>

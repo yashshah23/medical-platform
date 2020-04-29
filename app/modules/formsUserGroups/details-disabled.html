@@ -1,0 +1,46 @@
+
+<div ng-init="load()" class="card-panel">
+	<h6>USER GROUP DETAILS</h6>
+	<hr/>
+	<div class="row">
+		<form class="col s12">
+			<div class="row">
+				<div class="input-field col s8">
+					<input id="title" type="text" class="validate" ng-model="data.title" ng-disabled="true">
+				</div>
+
+				<div class="input-field col s4" style="padding-top: 28px !important;">
+					<input id="status" ng-value="data.status" type="checkbox" ng-model="data.status" ng-checked="data.status" ng-disabled="true"> IsActive 
+				</div>
+            </div>
+            <div class="row">
+                <!--<div class="input-field col s12">-->
+                <!--    <input type="text" id="people" class="autocomplete" ng-model = "people" ng-blur = "checkNewEntry(people)" ng-disabled="true" autofocus>-->
+                <!--</div>-->
+
+                <!-- Start Updated by Anjana -->
+
+                <div ng-if="x[0].first_name && x" ng-show="id" class="chip" id="ss" ng-repeat="x in selectedPeople track by $index">
+                    <img src="images/user.png">
+                    <span>{{x[0].first_name + ' ' + x[0].last_name + '' + ' (' + x[0].role + ')'}}</span>
+                </div>
+                <div ng-if="!x[0].first_name && x" ng-show="id" class="chip" id="ss" ng-repeat="x in selectedPeople track by $index">
+                    <img src="images/user.png">
+                    <span ng-if="!x[0].first_name && x"> {{x.first_name + ' ' + x.last_name + '' + ' (' + x.role + ')'}}</span>
+                </div>
+                <div ng-if="!x[0].first_name && x" ng-show="!id" class="chip" id="ss" ng-repeat="x in selectedPeople track by $index">
+                    <img src="images/user.png">{{x.first_name + ' ' + x.last_name + ' (' + x.role + ')'}}
+                </div>
+
+            </div>
+			
+		</form>
+
+		<div class="fixed-action-btn">
+			<abbr title="Back"><a class="btn-floating btn-large teal" href="#!forms-usergroups">
+				<i class="large material-icons">arrow_back</i>
+			</a></abbr>
+		</div>
+		<modal options="modalOptions"></modal>
+	</div>
+</div>

@@ -1,0 +1,50 @@
+<div>
+    <h6>{{data.form.title.toUpperCase().trim()}}</h6>
+    <hr>
+    <br>
+    <div style="overflow-x:auto;">
+        <table>
+            <thead>
+                <tr>
+                    <th style="padding: 15px 20px;" ng-if="CurrentUserAdmin || CurrentUserEditor">Action</th>
+                    <th style="padding: 15px 20px;" ng-repeat="x in data.default_fields track by $index">{{x.title}}</th>
+                    <th style="padding: 15px 20px;" ng-repeat="x in data.form_fields |orderBy:'seq' track by $index">{{x.field.title}}</th>
+                </tr>
+            </thead>
+
+            <tbody>
+         
+                <tr ng-repeat="x in data.master_entries track by $index" ng-if="data.master_entry_values">
+                    <td style="padding: 15px 20px;" ng-if="CurrentUserAdmin || CurrentUserEditor " >
+                     <p>
+                        <abbr title="Edit"><a class="btn-floating green" href="#!forms-master/{{x.id}}/entry/edit">
+                            <i class="material-icons Large">edit</i>
+                        </a></abbr>
+
+                        <abbr title="Delete"><a class="btn-floating red" href="" ng-click="launchDelete(x,$index)">
+                            <i class="material-icons Large">delete</i>
+                        </a></abbr>
+                    </p>
+                    </td> 
+                    <td  style="padding: 15px 20px;" ng-repeat="z in data.default_fields track by $index" > 
+                        <p ng-show=" z.field_type.id == 6" ng-repeat="d in (data.master_entry_values[z.id][x.id]) track by $index">{{d |date:"dd/MM/yyyy"}}</p>
+                        <p ng-show=" z.field_type.id == 7" ng-repeat="d in (data.master_entry_values[z.id][x.id]) track by $index">{{d |date:"HH:mm"}}</p>
+                        <p ng-show=" z.field_type.id != 6 && z.field_type.id != 7" ng-repeat="d in (data.master_entry_values[z.id][x.id]) track by $index">{{d}}</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+    <div class="fixed-action-btn">
+        <abbr title="Back"><a class="btn-floating btn-large teal" href="#!forms-master">
+            <i class="large material-icons">arrow_back</i>
+        </a></abbr>
+    </div>
+
+    <!-- <a class="btn-floating green" class="btn tooltipped" href="#!/master/{{x.id}}/entry/edit" >
+            <i class="material-icons Large">mode_edit</i>
+        </a> -->
+
+    <modal options="modalOptions"></modal>
+</div>

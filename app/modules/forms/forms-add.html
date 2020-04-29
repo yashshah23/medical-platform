@@ -1,0 +1,894 @@
+<div class="card-panel">
+	<div id="maindiv" ng-init="load()">
+		<h6>FORM DETAILS</h6>
+		<p></p>
+		<hr />
+		<div class="row">
+			<form name="formBuilder" class="col s12" id="ddddd">
+				<div class="row" style="margin-left: 0px;">
+					<md-input-container class="fill-width" style="margin-top:11px;">
+						<!-- <label><span style="color:red" ng-if="x.is_required">*</span>{{opt.title}}</label> -->
+						<md-select ng-model="data.numberofColumn" placeholder="Form Display As">
+							<md-option ng-value="opt.id" ng-repeat="opt in Columns track by opt.id">{{ opt.title }}
+							</md-option>
+						</md-select>
+					</md-input-container>
+
+				</div>
+				<div class="row" style="margin-left: 0px;">
+					<md-input-container class="fill-width" style="margin-top:11px;">
+						<!-- <label><span style="color:red" ng-if="x.is_required">*</span>{{opt.title}}</label> -->
+						<md-select ng-model="data.categoryId" placeholder="Select Category">
+							<md-option ng-value="opt.id" ng-repeat="opt in categories track by opt.title">
+								{{ opt.title }}</md-option>
+						</md-select>
+					</md-input-container>
+				</div>
+
+				<div class="row">
+					<div class="input-field col s12">
+						<label for="title">
+							<span style="color:red">*</span>Title</label>
+						<input id="title" type="text" class="validate" ng-model="data.title" required autofocus>
+						<span style="color:red" ng-show="formBuilder.name.$dirty && formBuilder.name.$invalid">
+							<span ng-show="formBuilder.name.$error.required">Required*</span>
+						</span>
+					</div>
+				</div>
+				<label>
+					<!-- <input    type="radio" id="fiel" ng-model="existing" class="filled-in" /> -->
+					<md-radio-group id="opt" ng-model="usertype" ng-change="changeusertype()">
+						<md-radio-button ng-value="opt" ng-repeat="opt in userType track by $index">
+							{{opt}}
+						</md-radio-button>
+					</md-radio-group>
+				</label>
+				<div class="row" ng-show="usertype == 'User'">
+					<div class="input-field col s12">
+						<input type="text" id="people" class="autocomplete" ng-model="people"
+							ng-blur="checkNewEntryPeople(people)" autofocus>
+						<label for="autocomplete-input">People</label>
+					</div>
+
+					<!-- Start Updated by Anjana -->
+
+					<div ng-if="x[0].first_name && x" ng-show="id" class="chip" id="ss"
+						ng-repeat="x in selectedPeople track by $index">
+						<img src="images/user.png">
+						<span>{{x[0].first_name + ' ' + x[0].last_name + '' + ' (' + x[0].role + ')'}}</span>
+						<i class="close material-icons" ng-click="unselectPerson(x)">close</i>
+					</div>
+					<div ng-if="!x[0].first_name && x" ng-show="id" class="chip" id="ss"
+						ng-repeat="x in selectedPeople track by $index">
+						<img src="images/user.png">
+						<span ng-if="!x[0].first_name && x">
+							{{x.first_name + ' ' + x.last_name + '' + ' (' + x.role + ')'}}</span>
+						<i class="close material-icons" ng-click="unselectPerson(x)">close</i>
+					</div>
+
+					<div ng-if="!x[0].first_name && x" ng-show="!id" class="chip" id="ss"
+						ng-repeat="x in selectedPeople track by $index">
+						<img src="images/user.png">{{x.first_name + ' ' + x.last_name + ' (' + x.role + ')'}}
+						<i class="close material-icons" ng-click="unselectPerson(x)">close</i>
+					</div>
+				</div>
+				<div class="row" ng-show="usertype == 'User Group'">
+					<div class="input-field col s12">
+						<input type="text" id="group" class="autocomplete" ng-model="group"
+							ng-blur="checkNewEntryGroup(group)" autofocus>
+						<label for="autocomplete-input">Group</label>
+					</div>
+
+					<div ng-if="!x[0].title && x" ng-show="id" class="chip" id="ss"
+						ng-repeat="x in selectedGroup track by $index">
+						<img src="images/user-group.png">
+						<span>{{x.title}}</span>
+						<span>
+							<i class="close material-icons" ng-click="unselectGroup(x)">close</i>
+						</span>
+					</div>
+					<div ng-if="x[0].title && x" ng-show="id" class="chip" id="ss"
+						ng-repeat="x in selectedGroup track by $index">
+						<img src="images/user-group.png">
+						<span>{{x[0].title}} </span>
+						<i class="close material-icons" ng-click="unselectGroup(x)">close</i>
+					</div>
+					<div ng-if="!x[0].title && x" ng-show="!id" class="chip" id="ss"
+						ng-repeat="x in selectedGroup track by $index">
+						<img src="images/user-group.png">
+						<span>{{x.title}}</span>
+						<i class="close material-icons" ng-click="unselectGroup(x)">close</i>
+					</div>
+				</div>
+
+				<!-- Start Added by Anjana -->
+
+				<div class="row" style="margin-bottom: 15px;">
+					<div class="input-field col s12">
+						<label style="margin-top: -17px; margin-left: 23px;">
+							<input id="autoIncrement" style="margin-left: -19px; margin-top: 5px;" type="checkbox"
+								class="validate" value="{{data.autoIncrement}}" ng-model="data.autoIncrement"
+								ng-true-value="1" ng-false-value="0" /> Auto Increment
+						</label>
+					</div>
+
+					<div class="input-field col s12">
+						<label style="margin-top: -17px; margin-left: 23px;">
+							<input id="sendEmailAlert" style="margin-left: -19px; margin-top: 5px;" type="checkbox"
+								class="validate" value="{{data.sendEmailAlert}}" ng-model="data.sendEmailAlert"
+								ng-true-value="1" ng-false-value="0" /> Send Email Alerts on Record Update </label>
+					</div>
+					<div class="input-field col s12">
+						<label style="margin-top: -17px; margin-left: 23px;">
+							<input id="reasonForUpdate" style="margin-left: -19px; margin-top: 5px;" type="checkbox"
+								class="validate" value="{{data.reasonForUpdate}}" ng-model="data.reasonForUpdate"
+								ng-true-value="1" ng-false-value="0" /> Reason for Update Form Entry </label>
+					</div>
+				</div>
+
+				<!-- End Added by Anjana -->
+
+				<div class="row">
+
+					<div class="input-field col s4">
+						<md-input-container class="fill-width" style="margin-top:0px;">
+							<md-select ng-model="data.master_id" placeholder="Select Master"
+								ng-change="selectedParentMasterChanged(data.master_id)">
+								<md-option ng-value="opt.id" ng-repeat="opt in masters track by $index">{{ opt.title }}
+								</md-option>
+							</md-select>
+						</md-input-container>
+					</div>
+					<div ng-if="isMasterClicked" class="input-field col s4">
+						<md-input-container class="fill-width" style="margin-top:11px;">
+							<md-select ng-model="data.default_field_id" multiple="multiple"
+							ng-change="selectedParentMasterField(data.default_field_id)" placeholder="Select Master Fields">
+								<!-- multiple="multiple" multiselect-dropdown -->
+								<md-option ng-value="opt.id" ng-repeat="opt in default_fields track by $index">
+									{{ opt.title }}</md-option>
+							</md-select>
+						</md-input-container>
+					</div>
+
+					<div class="input-field col s1" ng-if="isMasterClicked">
+						<abbr title="Add"><a class="btn-floating blue darken-4" href=""
+								ng-click="addMasterFieldSource(data.master_id,data.default_field_id)">
+								<i class="material-icons">add</i>
+							</a></abbr>
+					</div>
+				</div>
+
+
+
+				<div class="row" ng-if="isCollectionMasterDisabled">
+
+					<ul class="collection" ng-repeat="x in displayFormFieldSource track by $index">
+						<!-- <h7>
+							<b>{{displayFormFieldSource[$index][0].master.title}}</b>
+						</h7> -->
+						<i class="close material-icons" style="float: right; cursor: pointer;"
+							ng-click="masterDelete(displayFormFieldSource[$index][0].id)">close</i>
+						<li class="collection-item">
+							<div>
+								{{displayFormFieldSource[$index][0].title}}
+							</div>
+						</li>
+					</ul>
+				</div>
+
+
+				<div class="row" ng-show="id">
+					<ul class="collection" ng-repeat="x in MasterExistingFormField track by $index">
+						<h7>
+							<b>{{MasterExistingFormField[$index].master.title}}</b>
+						</h7>
+						<i class="close material-icons" style="float: right; cursor: pointer;"
+							ng-click="masterExisingFieldDelete(MasterExistingFormField[$index])">close</i>
+						<li class="collection-item">
+							<div>
+								{{MasterExistingFormField[$index].default_field.title}}
+							</div>
+						</li>
+					</ul>
+				</div>
+
+				<div class="row">
+					<div class="input-field col s4">
+						<label style="margin-top: -17px; margin-left: 23px;">
+							<input id="masterEnableUpadte" style="margin-left: -19px; margin-top: 5px;" type="checkbox"
+								class="validate" value="{{data.masterEnableUpadte}}" ng-model="data.masterEnableUpadte"
+								ng-true-value="1" ng-false-value="0" />Enable Master in Update Mode
+						</label>
+					</div>
+					<div class="input-field col s4" ng-if="data.masterEnableUpadte == 1">
+						<md-input-container class="fill-width" style="margin-top: -17px;">
+							<md-select ng-model="data.masterEnableList" multiple="multiple" placeholder="Select Master"
+								ng-change="">
+								<md-option ng-value="opt.id" ng-repeat="opt in masterSeleted track by $index">
+									{{ opt.title }}</md-option>
+							</md-select>
+						</md-input-container>
+					</div>
+				</div>
+
+
+				<label>
+					<!-- <input    type="radio" id="fiel" ng-model="existing" class="filled-in" /> -->
+					<md-radio-group id="opt" ng-model="fieldchoose" ng-change="optionchnages()">
+						<md-radio-button ng-value="opt" ng-repeat="opt in choose track by $index">
+							{{opt}}
+						</md-radio-button>
+					</md-radio-group>
+				</label>
+
+				<div class="row" ng-show="fieldchoose =='Choose Questions from Question Bank'">
+					<div class="input-field col s5">
+						<input type="text" id="field" class="autocomplete" ng-model="existingFields">
+						<label for="autocomplete-input">Question Name</label>
+					</div>
+					<div class="input-field col s2">
+						<label style="margin-top: 15px; margin-left: 33px;">
+							<input style="margin-left: -19px; margin-top: 5px;" id="is_Required" type="checkbox"
+								class="validate" ng-model="data1.is_required" /> Required
+						</label>
+					</div>
+					<!-- <div class="input-field col s2">
+						<label style="width: 135px; margin-top: 14px;">
+							<input style="margin-left: -19px; margin-top: 5px;" type="checkbox" id="defaultvalue" ng-model="chkdefault_value" ng-change="ShowHide()"
+							/>Set Default Value
+						</label>
+					</div> -->
+
+					<div class="input-field col s2" style="margin-top:4px; margin-left: -17px;">
+						<label ng-show="IsVisible">
+							<div ng-if="questiontype != 7 &&  questiontype != 6 && questiontype != 8">
+								<input type="text" disabled="true" id="defaultvalues" ng-model="data1.default_value"
+									name="textval" />
+							</div>
+							<div ng-if="data1.selectedFieldType == 7 ">
+								<input id="defaultvalues" type="time" name="timeval" class="validate"
+									ng-model="data1.default_value">
+							</div>
+							<div ng-if="data1.selectedFieldType == 7 ">
+								<input type="date" name="dateval" id="defaultvalues" ng-model="data1.default_value"
+									max="2999-12-31">
+							</div>
+						</label>
+					</div>
+					<div class="input-field col s1" style="margin-top: 22px; margin-left: 5px;">
+						<abbr title="Add"><a id="reset" class="btn-floating blue darken-4" href=""
+								ng-click="addQuestion()">
+								<i class="material-icons">add</i>
+							</a></abbr>
+					</div>
+					<br />
+					<!-- <div class="input-field col s2">
+						<label style="margin-left: -350px;" ng-show="data1.selectedFieldType == 1 || data1.selectedFieldType == 2 || data1.selectedFieldType == 8 || data1.selectedFieldType == 9">
+							<input style="margin-top:4px; margin-left: -4px;" type="checkbox" id="ismultiple" ng-model="data1.is_multiple" />&nbsp;&nbsp;&nbsp;&nbsp;Allow Repeated Entry
+						</label>
+					</div> -->
+				</div>
+
+				<div ng-show="fieldchoose == 'Create Question'">
+					<div class="row">
+						<div class="input-field col s5">
+							<input id="Field" type="text" class="validate" ng-model="data1.selectedField"
+								ng-change="datachange()">
+							<label for="Field">Field</label>
+						</div>
+						<div class="input-field col s4">
+							<select ng-model="data1.selectedFieldType" id="fieldTypes"
+								ng-change="selectedFieldTypeChanged()">
+								<option value="" disabled selected>Choose your option</option>
+								<option ng-repeat="x in fieldTypes track by $index" value={{x.id}} ng-if="x.id!=12">
+									{{x.title}}</option>
+							</select>
+							<label>Field Type</label>
+						</div>
+						<div ng-if="data1.selectedFieldType != 10" class="input-field col s2">
+							<label style="margin-top: 13px; margin-left: 25px;">
+								<input style="margin-left: -19px; margin-top: 5px;" id="is_Required" type="checkbox"
+									class="validate" ng-model="data1.is_required" name="is_required" />Required
+							</label>
+						</div>
+
+						<div class="input-field col s1">
+							<a class="btn-floating blue darken-4" href=""
+								ng-click="addField(data1.selectedField,data1.selectedFieldType,data1.is_required,data1.default_value,data1.is_multiple)">
+								<i class="material-icons">add</i>
+							</a>
+						</div>
+
+					</div>
+					<div class="row" style="margin-top: -36px;">
+						<label class="input-field col s12" ng-show="data1.selectedFieldType == 8"
+							style="color: blue;margin-top: -5px;">
+							Allowed extensions are: pdf, doc/docx, xls/xlsx, ppt/pptx, csv, jpg/jpeg, png
+						</label>
+					</div>
+
+					<div class="row">
+						<div class="input-field col s2"
+							ng-show="data1.selectedFieldType != 10 && data1.selectedFieldType != 11 && data1.selectedFieldType != 8">
+							<label style="width: 135px; margin-top: -40px;">
+								<input style="margin-top:5px;" type="checkbox" id="defaultvalue"
+									ng-model="chkdefault_value" ng-change="ShowHide()" /> &nbsp;&nbsp;&nbsp;&nbsp;Set
+								Default Value
+							</label>
+						</div>
+
+						<div class="input-field col s2" style="margin-top: -43px;">
+							<label ng-show="IsVisible">
+								<div
+									ng-if="data1.selectedFieldType != 7 &&  data1.selectedFieldType != 6 && data1.selectedFieldType != 8 && data1.selectedFieldType != 2 && data1.selectedFieldType != 1 && data1.selectedFieldType != 9 ">
+									<input type="text" id="default_value" name="default_value"
+										ng-model="data1.default_value" disabled />
+								</div>
+								<div ng-if="data1.selectedFieldType == 1">
+									<input type="text" id="default_value" name="default_value"
+										ng-model="data1.default_value" />
+								</div>
+
+								<div ng-if="data1.selectedFieldType == 2">
+									<input type="text" id="default_value" name="default_value"
+										ng-model="data1.default_value" />
+								</div>
+								<div ng-if="data1.selectedFieldType == 9">
+									<input type="text" id="default_value" name="default_value"
+										ng-model="data1.default_value" />
+								</div>
+
+								<div ng-if="data1.selectedFieldType == 7 ">
+									<input id="defaultvalues" type="time" name="field7" class="validate"
+										ng-model="data1.default_value" />
+								</div>
+								<div ng-if="data1.selectedFieldType ==6">
+									<input type="date" name="field6" id="forfuturedatesdisable" ng-click="validDate();"
+										ng-model="data1.default_value" max="2999-12-31" />
+								</div>
+							</label>
+
+						</div>
+
+					</div>
+
+					<div class="row">
+						<div class="input-field col s2">
+							<label style="width: 161px; margin-top: -50px;"
+								ng-show="data1.selectedFieldType == 1 || data1.selectedFieldType == 2 || data1.selectedFieldType == 8 || data1.selectedFieldType == 9 || data1.selectedFieldType == 6 || data1.selectedFieldType == 7">
+								<input style="margin-top:5px;" type="checkbox" id="ismultiple"
+									ng-model="data1.is_multiple" />&nbsp;&nbsp;&nbsp;&nbsp;Allow Repeated Entry
+							</label>
+						</div>
+					</div>
+
+					<br>
+
+					<div class="row"
+						ng-if="data1.selectedFieldType == 3 || data1.selectedFieldType == 4 || data1.selectedFieldType == 5">
+						<div class="input-field col s7">
+							<input id="fieldSourceItem" type="text" class="validate"
+								ng-keyup="$event.keyCode == 13 ? addFieldSource(data1.selectedField, fieldSourceItem) : ''"
+								ng-model="fieldSourceItem">
+							<label for="fieldSourceItem">Data Item</label>
+						</div>
+						<div class="input-field col s1">
+							<a class="btn-floating blue darken-4" href=""
+								ng-click="addFieldSource(data1.selectedField, fieldSourceItem)">
+								<i class="material-icons">add</i>
+							</a>
+						</div>
+						<div class="input-field col s4">
+							<ul class="collection">
+								<li class="collection-item">
+									<!-- <input id="{{x}}" type="checkbox" ng-model="confirmed" id="{{x}}" value="{{x}}" ng-change="displayVals()">{{x}} -->
+									<div ng-if="data1.selectedFieldType != 3 &&  data1.selectedFieldType != 4"
+										ng-repeat="x in fieldSources[data1.selectedField] track by $index">
+										<input type="checkbox" id="{{x}}" ng-model="confirmed" value="{{x}}"
+											ng-change="displayVals()">{{x}}
+									</div>
+
+									<div ng-if="data1.selectedFieldType == 3">
+										<md-radio-group id="{{x}}" ng-model="confirmedradio"
+											ng-change="displayVals(confirmedradio)">
+											<md-radio-button ng-value="x"
+												ng-repeat="x in fieldSources[data1.selectedField] track by $index">
+												{{x}}
+											</md-radio-button>
+
+										</md-radio-group>
+									</div>
+
+									<div ng-if="data1.selectedFieldType == 4">
+										<md-radio-group id="{{x}}" ng-model="confirmedradio"
+											ng-change="displayVals(confirmedradio)">
+											<md-radio-button ng-value="x"
+												ng-repeat="x in fieldSources[data1.selectedField] track by $index">
+												{{x}}
+											</md-radio-button>
+
+										</md-radio-group>
+									</div>
+								</li>
+							</ul>
+						</div>
+					</div>
+
+					<div class="row" ng-if="data1.selectedFieldType == 10">
+						<div class="input-field col s3" style="width: 169px;">
+							<md-input-container class="fill-width" style="margin-top:0px;">
+								<md-select ng-model="formula.question" id="questiondata" name="question"
+									placeholder="Select Question" id="question"
+									ng-blur="onblur('formula.question',formula.question)">
+									<md-option ng-show="fields && opt.field_type.id == 2" ng-value="opt.title"
+										ng-repeat="opt in fields track by $index">{{ opt.title }}</md-option>
+									<md-option ng-show="existingFormfields && opt.field_type_id == 2"
+										ng-value="opt.title" ng-repeat="opt in existingFormfields track by $index">
+										{{ opt.title }}</md-option>
+								</md-select>
+							</md-input-container>
+						</div>
+						<div class="input-field col s3" style="width: 169px;">
+							<md-input-container class="fill-width" style="margin-top:0px;">
+								<md-select ng-model="formula.formulasing" placeholder="Select Operator"
+									ng-blur="onblur('formula.formulasing',formula.formulasing)">
+									<md-option ng-value="fornul" ng-repeat="fornul in formulas  track by $index">
+										{{ fornul }}</md-option>
+								</md-select>
+							</md-input-container>
+						</div>
+						<div class="input-field col s4">
+							<md-radio-group id="value" ng-model="formula.value"
+								ng-blur="onblur('formula.value',formula.value)">
+								<md-radio-button class="input-field col s4" value="Value"
+									style="margin-left: 0px;margin-right: 23px; width: 68px;">
+									<span style="margin-left: -8px;"> Value </span>
+								</md-radio-button>
+								<md-radio-button class="input-field col s1" value="Question">
+									<span style="margin-left:  -8px;"> Question </span>
+								</md-radio-button>
+							</md-radio-group>
+						</div>
+
+						<div class="input-field col s2" ng-show="formula.value == 'Value'">
+							<input id="valueadd" type="number" class="validate" ng-model="formula.addvalue"
+								style="margin-left: -80px;" ng-blur="onblur('formula.addvalue',formula.addvalue)">
+						</div>
+
+						<div ng-show="formula.value == 'Question'" class="input-field col s3"
+							style="width: 169px; margin-left: -5px;">
+							<md-input-container class="fill-width" style="margin-top:0px; margin-left: -80px;">
+								<md-select ng-model="formula.question1" placeholder="Select Question"
+									ng-blur="onblur('formula.question1',formula.question1)">
+									<md-option ng-value="Q.title" ng-show="fields && Q.field_type.id == 2"
+										ng-repeat="Q in fields track by $index">{{ Q.title }}</md-option>
+									<md-option ng-value="Q.title" ng-show="existingFormfields && Q.field_type_id == 2"
+										ng-repeat="Q in existingFormfields track by $index">{{ Q.title }}</md-option>
+								</md-select>
+							</md-input-container>
+						</div>
+
+						<div class="input-field col s2" style="margin-left: -78px; margin-top: 20px;">
+							<!-- <button class="btn waves-effect waves-teal" style="background-color: #dc112d;width: 37px;height: 31px; float:right;" ng-click="deleteformula(formula)">
+					<i class="material-icons right" style="left: 7px;top: -2px;">cancel</i>
+				</button> -->
+							<a class="btn-floating red btn-medium" ng-click="deleteformula(formula)">
+								<i class="material-icons">close</i>
+							</a>
+						</div>
+
+					</div>
+
+					<div class="row" ng-if="data1.selectedFieldType == 10" ng-show="addformula.length">
+						<div class="input-field col s3">
+							<md-input-container class="fill-width" style="margin-top:0px;">
+								<md-select ng-model="formula.operator" placeholder="Select Operator"
+									ng-blur="onblur('operator',formula.operator,-1)">
+									<md-option ng-value="fornul" ng-repeat="fornul in formulas  track by $index">
+										{{ fornul }}</md-option>
+								</md-select>
+							</md-input-container>
+						</div>
+					</div>
+
+					<div class="row" ng-if="data1.selectedFieldType == 10">
+						<div ng-show="{{$index}}" class="input-field col s3">
+							<md-input-container class="fill-width" style="margin-top:0px;">
+								<md-select ng-model="f.operator[$index]" placeholder="Select Operator"
+									ng-blur="onblur('operator',f.operator[$index],$index)">
+									<md-option ng-value="fornul" ng-repeat="fornul in formulas  track by $index">
+										{{ fornul }} </md-option>
+								</md-select>
+							</md-input-container>
+						</div>
+					</div>
+
+					<div style="margin-top: -30px;" class="row" ng-if="data1.selectedFieldType == 10"
+						ng-repeat="fromula in Formula  track by $index">
+
+						<div class="row" ng-if="data1.selectedFieldType == 10">
+							<div ng-show="{{$index}}" class="input-field col s3">
+								<md-input-container class="fill-width" style="margin-top:0px;">
+									<md-select ng-model="f.operator[$index]" placeholder="Select Operator"
+										ng-blur="onblur('operator',f.operator[$index],$index)">
+										<md-option ng-value="fornul" ng-repeat="fornul in formulas  track by $index">
+											{{ fornul }} </md-option>
+									</md-select>
+								</md-input-container>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="input-field col s3" style="width: 169px;">
+								<md-input-container class="fill-width" style="margin-top:0px;">
+									<md-select ng-model="f.question[$index]" placeholder="Select Question"
+										ng-blur="onblur('question',f.question[$index],$index)">
+										<md-option ng-value="opt.title" ng-show="fields && opt.field_type.id == 2"
+											ng-repeat="opt in fields track by $index">{{ opt.title }}</md-option>
+										<md-option ng-value="opt.title"
+											ng-show="existingFormfields && opt.field_type_id == 2"
+											ng-repeat="opt in existingFormfields track by $index">{{ opt.title }}
+										</md-option>
+									</md-select>
+								</md-input-container>
+							</div>
+							<div class="input-field col s3" style="width: 169px;">
+								<md-input-container class="fill-width" style="margin-top:0px;">
+									<md-select ng-model="f.formulasing[$index]" placeholder="Select Operator"
+										ng-blur="onblur('formulasing',f.formulasing[$index],$index)">
+										<md-option ng-value="fornul" ng-repeat="fornul in formulas  track by $index">
+											{{ fornul }}</md-option>
+									</md-select>
+								</md-input-container>
+							</div>
+							<div class="input-field col s4">
+								<md-radio-group id="value{{$index}}" name="value{{$index}}" ng-model="f.value[$index]"
+									ng-blur="onblur('type',f.value[$index],$index)">
+									<md-radio-button id="v{{$index}}" class="input-field col s4" value="Value">
+										<span style="margin-left: -8px;"> Value </span>
+									</md-radio-button>
+									<md-radio-button id="vv{{$index}}" class="input-field col s1" value="Question">
+										<span style="margin-left:  -8px;"> Question </span>
+									</md-radio-button>
+								</md-radio-group>
+							</div>
+
+
+							<div ng-show="f.value[$index]  == 'Question'" class="input-field col s3"
+								style="width: 169px; margin-left: -5px;">
+								<md-input-container class="fill-width" style="margin-top:0px; margin-left: -80px;">
+									<md-select ng-model="f.question1[$index]" placeholder="Select Question"
+										ng-blur="onblur('question1',f.question1[$index],$index)">
+										<md-option ng-value="Q.title" ng-show="fields && Q.field_type.id == 2"
+											ng-repeat="Q in fields track by $index">{{ Q.title }}</md-option>
+										<md-option ng-value="Q.title"
+											ng-show="existingFormfields && Q.field_type_id == 2"
+											ng-repeat="Q in existingFormfields track by $index">{{ Q.title }}
+										</md-option>
+									</md-select>
+								</md-input-container>
+							</div>
+							<div class="input-field col s2" ng-show="f.value[$index] == 'Value'">
+								<input id="valueadd{{$index}}" type="number" name="valueadd{{$index}}"
+									style="margin-left: -80px;" class="validate" ng-model="f.addvalue[$index]"
+									ng-blur="onblur('addvalue',f.addvalue[$index],$index)">
+							</div>
+
+
+							<div class="input-field col s2" style="margin-left: -78px; margin-top: 20px;">
+								<!-- <button class="btn waves-effect waves-teal" style="background-color: #dc112d;width: 37px;height: 31px;" ng-click="deleteformula($index)">
+					<i class="material-icons right" style="left: 7px;top: -2px;">cancel</i>
+				</button> -->
+								<abbr title="Close"><a class="btn-floating red btn-medium"
+										ng-click="deleteformula($index)">
+										<i class="material-icons">close</i>
+									</a></abbr>
+							</div>
+						</div>
+					</div>
+
+					<div class="row" ng-if="data1.selectedFieldType == 10">
+						<div class="input-field" style="margin-left: 12px;">
+							<button ng-model="new" name="new" class="btn waves-effect waves-light" type="button"
+								ng-click="addformulafield('fromula')" name="action">Add
+							</button>
+						</div>
+					</div>
+
+					<!-- <div class="row" ng-if="data1.selectedFieldType == 10">
+			<div class="input-field" style="margin-left: 12px;">
+				<button ng-model="new" name="new" class="btn waves-effect waves-light" type="button" ng-click="addformulafield()" name="action">Add Formula
+				</button>
+			</div>
+		</div> -->
+
+				</div>
+
+				<div ng-if="data1.selectedFieldType == 10">
+					<div style="background-color:lightblue">
+						<p ng-repeat="x in formuladatacopy track by $index" style="float: left;margin-top: -16px;">
+							{{x.question}} {{x.formulasing}} {{x.addvalue}} {{x.question1}}</p>
+						<p ng-repeat="x in formuladata1 track by $index" style="float: left;margin-top: -16px;">
+							{{x.operator}} {{x.question}} {{x.formulasing}} {{x.addvalue}} {{x.question1}}</p>
+					</div>
+				</div>
+				<table ng-show="!id">
+					<thead>
+						<tr>
+							<th>Question Name</th>
+							<th>Type</th>
+							<th>Formula</th>
+							<th>Required</th>
+							<th>Default Value</th>
+							<th>Repeated</th>
+							<th>Action</th>
+						</tr>
+					</thead>
+
+					<tbody>
+						<tr ng-repeat="x in fields track by $index">
+
+							<td>{{x.title}}</td>
+							<td>{{ x.field_type.title }} </td>
+							<td ng-show=" x.field_type.id != 10">-</td>
+							<td ng-show=" x.field_type.id == 10">
+
+								<p ng-if="x.formula.length<2" ng-repeat="f in x.formula track by $index"
+									style="float: left;" class="popuptext" id="myPopup">{{f.operator}} {{f.question}}
+									{{f.formulasing}} {{f.addvalue}}
+
+									<div class="expandcollapse-item" ng-if="x.formula.length>=2">
+
+										<div ng-click="active = !active">
+											<p ng-show="active">{{x.formula[0].question}} {{x.formula[0].formulasing}}
+												{{x.formula[0].addvalue}}
+												<span style="color: rgb(118, 118, 199)" class="popup">
+													More</span>
+											</p>
+										</div>
+
+										<div class="slideDown" ng-hide="active">
+											<div ng-repeat="f in x.formula track by $index"
+												class="expand-collapse-content">
+												{{f.operator}} {{f.question}} {{f.formulasing}} {{f.addvalue}}
+											</div>
+											<div ng-click="active = !active">
+												<p ng-show="!active" class="popup">
+													<span style="color: rgb(118, 118, 199)"> Less</span>
+												</p>
+											</div>
+										</div>
+									</div>
+							</td>
+							<td>{{x.is_required ? 'Required' : 'Not Required'}} </td>
+							<td ng-show=" x.field_type.id == 6">
+								{{x.default_value ?x.default_value:'' |date:"dd/MM/yyyy"}}</td>
+							<td ng-show=" x.field_type.id == 7">{{x.default_value ?x.default_value:'' |date:"HH:mm"}}
+							</td>
+							<td ng-show="x.field_type.id != 6 && x.field_type.id != 7 ">
+								{{x.default_value ?x.default_value:''}}</td>
+
+							<!-- Above <td>s added by Sanjoli / 20180614-->
+
+							<td>{{x.is_multiple ? 'True' : 'False'}} </td>
+							<td>
+								<span>
+									<a class="btn-floating blue darken-4 btn-small"
+										ng-click="swapField($index, $index + 1,'fields')">
+										<i class="material-icons">arrow_downward</i>
+									</a>
+								</span>
+
+								<span>
+									<a class="btn-floating blue darken-4 btn-small"
+										ng-click="swapField($index, $index - 1,'fields')">
+										<i class="material-icons">arrow_upward</i>
+									</a>
+								</span>
+								<!-- <span  ng-show=" x.field_type.id == 10">
+						<a class="btn-floating red btn-small" ng-click="editFormula(x.formula,'0');">
+							<i class="material-icons">mode_edit</i>
+						</a>
+					</span> -->
+								<span>
+									<abbr title="Close"><a class="btn-floating red btn-small"
+											ng-click="fields.splice($index,1);">
+											<i class="material-icons">close</i>
+										</a></abbr>
+								</span>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<table ng-show="id" class="striped">
+					<thead>
+						<tr>
+							<th>Question Name</th>
+							<th>Type</th>
+							<th>Formula</th>
+							<th>Required</th>
+							<th>Default Value</th>
+							<th>Repeated</th>
+							<th>Action</th>
+						</tr>
+					</thead>
+
+					<tbody>
+						<tr ng-repeat="x in existingFormfields track by $index">
+							<!-- <tr ng-repeat="x in existingFormfields |orderBy:'seq' track by $index"> -->
+
+							<td>{{x.title}}</td>
+							<td>{{x.fieldtitle}}</td>
+							<td ng-show=" x.field_type_id != 10">-</td>
+							<td ng-show=" x.field_type_id == 10">
+								<p ng-if="x.formula.length<2" ng-repeat="f in x.formula |orderBy:'id' track by $index"
+									style="float: left;" class="popuptext" id="myPopup">{{f.operator}} {{f.question}}
+									{{f.formulasing}} {{f.value}}
+									<p>
+										<div class="expandcollapse-item" ng-if="x.formula.length>=2">
+											<div ng-click="active = !active">
+												<p ng-show="active">{{x.formula[0].question}}
+													{{x.formula[0].formulasing}} {{x.formula[0].value}}
+													<span style="color: rgb(118, 118, 199)" class="popup">
+														More</span>
+												</p>
+											</div>
+
+											<div class="slideDown" ng-hide="active">
+												<div ng-repeat="f in x.formula |orderBy:'id' track by $index"
+													class="expand-collapse-content">
+													{{f.operator}} {{f.question}} {{f.formulasing}} {{f.value}}
+												</div>
+												<div ng-click="active = !active">
+													<p ng-show="!active">
+														<span style="color: rgb(118, 118, 199)" class="popup">
+															Less</span>
+													</p>
+												</div>
+											</div>
+
+										</div>
+							</td>
+							<td>{{x.is_required ? 'Required' : 'Not Required'}} </td>
+							<td ng-show="x.field_type_id == 6">{{x.defaultvalue ? x.defaultvalue:'' |date:"dd/MM/yyyy"}}
+							</td>
+							<td ng-show="x.field_type_id == 7">{{x.defaultvalue ? x.defaultvalue:'' | date:"HH:mm"}}
+							</td>
+							<td ng-show="x.field_type_id != 6 && x.field_type_id != 7">
+								{{x.defaultvalue ?x.defaultvalue:''}}</td>
+
+							<!-- Above <td>s added by Sanjoli / 20180614 -->
+
+							<td>{{x.is_multiple ? 'True' : 'False'}} </td>
+							<td>
+
+								<span>
+									<a class="btn-floating blue darken-4 btn-small"
+										ng-click="swapField($index, $index + 1,'existingFormfields')">
+
+										<i class="material-icons">arrow_downward</i>
+									</a>
+								</span>
+
+								<span>
+									<a class="btn-floating blue darken-4 btn-small"
+										ng-click="swapField($index, $index - 1,'existingFormfields')">
+
+										<i class="material-icons">arrow_upward</i>
+									</a>
+								</span>
+								<!-- <span  ng-show="x.field_type_id == 10">
+						<a class="btn-floating red btn-small" ng-click="editFormula(x.formula);">
+							<i class="material-icons">mode_edit</i>
+						</a>
+					</span> -->
+								<span>
+									<abbr title="Close"><a class="btn-floating red btn-small"
+											ng-click="launchDelete(x,'0')">
+											<i class="material-icons">close</i>
+										</a></abbr>
+								</span>
+							</td>
+						</tr>
+						<tr ng-show="fields" ng-repeat="x in fields track by $index">
+							<td>{{x.title}}</td>
+							<td>{{ x.field_type.title }} </td>
+
+							<td ng-show=" x.field_type.id != 10">-</td>
+							<td ng-show=" x.field_type.id == 10">
+								<!-- <p ng-repeat="f in x.formula track by $index" style="float: left;">{{f.operator}} {{f.question}} {{f.formulasing}} {{f.addvalue}} </p> -->
+								<p ng-if="x.formula.length<2" ng-repeat="f in x.formula track by $index"
+									style="float: left;" class="popuptext" id="myPopup">{{f.operator}} {{f.question}}
+									{{f.formulasing}} {{f.addvalue}}
+									<!-- <p> -->
+									<div class="expandcollapse-item" ng-if="x.formula.length>=2">
+
+										<div ng-click="active = !active">
+											<p ng-show="active">{{x.formula[0].question}} {{x.formula[0].formulasing}}
+												{{x.formula[0].addvalue}}
+												<span style="color: rgb(118, 118, 199)" class="popup">
+													More</span>
+											</p>
+										</div>
+
+										<div class="slideDown" ng-hide="active">
+											<div ng-repeat="f in x.formula track by $index"
+												class="expand-collapse-content">
+												{{f.operator}} {{f.question}} {{f.formulasing}} {{f.addvalue}}
+											</div>
+											<div ng-click="active = !active">
+												<p ng-show="!active" class="popup">
+													<span style="color: rgb(118, 118, 199)"> Less</span>
+												</p>
+											</div>
+										</div>
+									</div>
+							</td>
+							<td>{{x.is_required ? 'Required' : 'Not Required'}} </td>
+							<td ng-show="x.field_type_id == 6">
+								{{x.default_value ?x.default_value:'' |date:"dd/MM/yyyy"}}</td>
+							<td ng-show="x.field_type_id == 7">{{x.default_value ?x.default_value:'' |date:"HH:mm"}}
+							</td>
+							<td ng-show="x.field_type_id != 6 && x.field_type.id != 7 ">
+								{{x.default_value ?x.default_value:''}}</td>
+
+							<!-- Above <td>s added by Sanjoli / 20180614 -->
+
+							<td>{{x.is_multiple ? 'True' : 'False'}} </td>
+							<td>
+								<span>
+									<a class="btn-floating blue darken-4 btn-small"
+										ng-click="swapField($index, $index + 1,'fields')">
+										<i class="material-icons">arrow_downward</i>
+									</a>
+								</span>
+
+								<span>
+									<a class="btn-floating blue darken-4 btn-small"
+										ng-click="swapField($index, $index - 1,'fields')">
+										<i class="material-icons">arrow_upward</i>
+									</a>
+								</span>
+								<!-- <span  ng-show=" x.field_type.id == 10">
+						<a class="btn-floating red btn-small" ng-click="editFormula(x.formula);">
+							<i class="material-icons">mode_edit</i>
+						</a>
+					</span> -->
+								<span>
+									<abbr title="Close"><a class="btn-floating red btn-small"
+											ng-click="fields.splice($index,1);">
+											<i class="material-icons">close</i>
+										</a></abbr>
+								</span>
+
+							</td>
+						</tr>
+					</tbody>
+				</table>
+
+				<div class="fixed-action-btn">
+					<a class="btn-floating btn-large teal" href="">
+						<i class="large material-icons">menu</i>
+					</a>
+					<ul>
+						<li>
+							<abbr title="Cancel"><a class="btn-floating yellow darken-4" ng-click="cancelForm()">
+									<i class="material-icons">cancel</i>
+								</a></abbr>
+						</li>
+						<li ng-show="!id">
+							<abbr title="Save"><a class="btn-floating green darken-4" ng-click="saveForm()">
+									<i class="material-icons">save</i>
+								</a></abbr>
+						</li>
+						<li ng-show="id">
+							<abbr title="Save"><a class="btn-floating green darken-4" ng-click="save()">
+									<i class="material-icons">save</i>
+								</a></abbr>
+						</li>
+					</ul>
+				</div>
+				<modal id="modal" options="modalOptions"></modal>
+		</div>
+	</div>
+</div>

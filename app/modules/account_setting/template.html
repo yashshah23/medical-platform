@@ -1,0 +1,21 @@
+
+	<div class="content-section-bx" ng-init = "load()">
+	<div class= "head-portion">
+			<div class="badge">
+				<img style="width: 90px !important;"src="styles/images/image.png" alt="badge">
+				<h3 style="font-size: 20px; line-height: 33px;">{{user.first_name}} {{user.last_name}}</h3>
+				<h4 style="font-size: 14px; color: #ccc;">{{user.phone}}</h4>
+				<p ng-if="currentUser.role != 'doctor'" style= "line-height: 26px;"><a href= "#!account_setting/view_profile" style= "color: #fff;">View Profile >></p>
+			</div>		
+	</div>
+	<div class= "li-content-account">
+		<ul ng-if="currentUser.role != 'doctor' && currentUser.role != 'technician'">
+			<li><a href= "#!account_setting/mydoctors">My Doctors<em><i class="far fa-chevron-right"></i></em></a></li>
+			<li><a href= "">My Lab Reports<em><i class="far fa-chevron-right"></i></em></a></li>
+			<!--<li><a href= "appointments.html">Appointment<em><i class="far fa-chevron-right"></i></em></a></li>-->
+		</ul>
+		<div class= "add-button1">
+				<a ng-click = "logout()" href = "" >Logout</a>
+		</div>			
+	</div>
+	</div>

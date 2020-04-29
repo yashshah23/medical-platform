@@ -1,0 +1,191 @@
+<style>
+    .card {
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        transition: 0.3s;
+        width: 40%;
+        background-color: #F8FBEF;
+        text-align: center;
+        margin-top: 39px;
+
+    }
+
+    .card:hover {
+        box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+    }
+
+    .container {
+        padding: 2px 16px;
+    }
+
+    .tooltip {
+        position: relative;
+        display: inline-block;
+        border-bottom: 1px dotted black;
+    }
+
+    .tooltip .tooltiptext {
+        visibility: hidden;
+        width: 120px;
+        background-color: #555;
+        color: #fff;
+        text-align: center;
+        border-radius: 6px;
+        padding: 5px 0;
+        position: absolute;
+        z-index: 1;
+        bottom: 125%;
+        left: 50%;
+        margin-left: -60px;
+        opacity: 0;
+        transition: opacity 0.3s;
+    }
+
+    .tooltip .tooltiptext::after {
+        content: "";
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        margin-left: -5px;
+        border-width: 5px;
+        border-style: solid;
+        border-color: #555 transparent transparent transparent;
+    }
+
+    .tooltip:hover .tooltiptext {
+        visibility: visible;
+        opacity: 1;
+    }
+</style>
+
+<div ng-init="load()">
+
+    <form class="col s12" id="masterform" name="formBuilder" novalidate ng-submit="formBuilder.$valid && formBuilder.submit()">
+
+        <section class="row card-panel">
+            <h7>FIELDS</h7>
+            <br>
+            <br>
+            <div class="" ng-repeat="x in data.default_fields | orderBy: 'seq' ">
+
+                <div class="input-field {{column}}" ng-if="x.field_type.id == 1">
+                    <div>
+                        <label for="input{{x.id}}">
+                            <span style="color:red" ng-if="x.is_required">*</span>{{x.title}}</label>
+                    </div>
+                    <input id="input{{x.id}}m" ng-blur="checkIsPrimaryExist()" type="text" name="m1" class="validate"
+                        ng-model="data.default_entries[x.id]" ng-disabled="x.is_autoIncrement" required autofocus>
+                    <span style="color:red" ng-show="formBuilder.m1.$dirty && formBuilder.m1.$invalid">
+                        <span ng-show="formBuilder.m1.$error.required">Required*</span>
+                    </span>
+
+                </div>
+
+                <div class="input-field {{column}}" ng-if="x.field_type.id == 2">
+                    <div>
+                        <label for="input{{x.id}}">
+                            <span style="color:red" ng-if="x.is_required">*</span>{{x.title}} </span> </label>
+                    </div>
+                    <input id="input{{x.id}}m" ng-blur="checkIsPrimaryExist(data.default_entries[x.id], x.title, x.id)" name="m2" type="text" onkeydown="javascript: return event.keyCode == 48 ||
+					event.keyCode == 49 || event.keyCode == 50 || event.keyCode == 51 ||
+					event.keyCode == 52 || event.keyCode == 53 || event.keyCode == 54 || event.keyCode == 55 ||
+					event.keyCode == 56 ||event.keyCode == 57 ||event.keyCode == 8 || event.keyCode == 46 ||
+					 event.keyCode == 190 ||  event.keyCode == 96 ||  event.keyCode == 97  ||  event.keyCode == 98  ||  event.keyCode == 99  ||  event.keyCode == 100
+					 ||  event.keyCode == 101  ||  event.keyCode == 102  ||  event.keyCode == 103  ||  event.keyCode == 104  ||  event.keyCode == 105  ||  event.keyCode == 106  ||  event.keyCode == 107
+					 ||  event.keyCode == 108  ||  event.keyCode == 109  ||  event.keyCode == 110  ||  event.keyCode == 111 || event.keyCode == 9? true : false"
+                        class="validate" ng-model="data.default_entries[x.id]" ng-disabled="x.is_autoIncrement" required autofocus>
+                    <span style="color:red" ng-show="formBuilder.m2.$dirty && formBuilder.m2.$invalid">
+                        <span ng-show="formBuilder.m2.$error.required">Required*</span>
+                    </span>
+
+                </div>
+
+                <div class="input-field {{column}}" ng-if="x.field_type.id == 3">
+                    <div>
+                        <label for="input{{x.id}}">
+                            <span style="color:red" ng-if="x.is_required" autofocus>*</span>{{x.title}}
+                        </label>
+                    </div>
+
+                    <md-input-container class="fill-width" style="margin-top:11px;">
+
+                        <md-select ng-model="data.default_entries[x.id]" ng-disabled="x.is_autoIncrement">
+                            <md-option ng-value="opt" ng-repeat="opt in data.masterDataSource[x.id] track by $index" autofocus>{{ opt }}</md-option>
+                        </md-select>
+                        <div ng-if="x.is_required">
+                            <p style="color:red" ng-show="formBuilder.m3.$error.required && !formBuilder.m3.$pristine" class="help-block">Required</p>
+                        </div>
+                    </md-input-container>
+
+                </div>
+                <div class="input-field {{column}}" ng-if="x.field_type.id == 6">
+                    <input type="date" name="m6" id="forfuturedatesdisable" ng-model="data.default_entries[x.id]" ng-required="x.is_required"
+                        ng-click="validDate();" max="2999-12-31" ng-disabled="x.is_autoIncrement">
+                    <label for="input{{x.id}}">
+                        <span style="color:red" ng-if="x.is_required">*</span>{{x.title}}
+
+                    </label>
+                    <div ng-if="x.is_required">
+                        <span style="color:red" ng-show="formBuilder.m6.$dirty && formBuilder.m6.$invalid">
+                            <span ng-show="formBuilder.m6.$error.required">Required*</span>
+                    </div>
+
+                </div>
+
+                <div class="input-field {{column}}" ng-if="x.field_type.id == 7" autofocus>
+                    <input id="input{{x.id}}" type="time" name="m7" class="validate" 
+                    ng-disabled="x.is_autoIncrement" ng-model="data.default_entries[x.id]" ng-required="x.is_required">
+                    <label for="input{{x.id}}">
+                        <span style="color:red" ng-if="x.is_required" autofocus>*</span>{{x.title}}</label>
+                    <span style="color:red" ng-show="formBuilder.m7.$dirty && formBuilder.m7.$invalid">
+                        <span ng-show="formBuilder.m7.$error.required">Required*</span>
+
+                </div>
+
+                <div class="input-field {{column}}" ng-if="x.field_type.id == 12">
+                    <div>
+                        <label for="input{{x.id}}">
+                            <span style="color:red" ng-if="x.is_required" autofocus>*</span>{{x.title}}
+                        </label>
+                    </div>   
+                    <md-input-container class="fill-width" style="margin-top:11px;">
+                        <md-select ng-model="data.default_entries[x.id]">
+                            <md-option ng-value="opt" ng-repeat="opt in data.parentMasterArray[x.title]  track by $index"
+                                autofocus>{{ opt }}</md-option>
+                        </md-select>
+                        <div ng-if="x.is_required">
+                            <p style="color:red" ng-show="formBuilder.m12.$error.required && !formBuilder.m12.$pristine" class="help-block">Required</p>
+                        </div>
+                    </md-input-container>
+
+                </div>
+
+            </div>
+        </section>
+    </form>
+
+
+    <div class="fixed-action-btn">
+        <a class="btn-floating btn-large teal" href="">
+            <i class="large material-icons">menu</i>
+        </a>
+        <ul>
+            <li>
+                <abbr title="Cancel"><a class="btn-floating yellow darken-4" ng-click="showCancelFormModal()">
+                    <i class="material-icons">cancel</i>
+                </a></abbr>
+            </li>
+            <li ng-show="!modeaction">
+                <abbr title="Save"><a class="btn-floating green darken-4" ng-click="saveData(formBuilder)">
+                    <i class="material-icons">save</i>
+                </a></abbr>
+            </li>
+            <li ng-show="modeaction">
+                <abbr title="Save"><a class="btn-floating green" class="btn tooltipped" ng-click="save()">
+                    <i class="material-icons">save</i>
+                </a></abbr>
+            </li>
+        </ul>
+    </div>
+    <modal id="modal" options="modalOptions"></modal>
+
+</div>

@@ -1,0 +1,66 @@
+<div class="content-section-bx" ng-init = "load()">
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-title">
+                    <h4 ng-if = "notiPop!= 0">All New Notification</h4>
+
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <tbody  ng-repeat = "x in newnoti">
+                                <tr>
+                                    <td></td>
+                                    <td><b> Sender : </b><br> {{x.user.first_name}} {{x.user.last_name}}</td>
+                                    <td> <b>  Appointment Date : </b><br> {{x.date_selected_usr}}</td>
+                                    <td> <b> Time Slot : </b> <br> From : {{x.available_doc_time.fromtime}} <br> To : {{x.available_doc_time.totime}}</td>
+                                    <td><b> Patient : </b><br> {{x.patient}}</td>
+                                    <td><b> Type : </b><br> {{x.type.name}}</td>
+                                     <td  ng-if="x.req_status.id==1">
+
+                                            <a class= "payment-class-doc-trans" ng-click = "chgflg3(x.id)" enabled="false"  >
+                                                    Accept Request
+                                             </a>
+                                             <a class= "payment-class-doc-red" enabled="false" >
+                                                    Reject Request
+                                             </a>
+
+                                    </td>
+                                    <td ng-if="x.req_status.id==3">
+                                            <a class= "payment-class-doc" enabled="false" >
+                                                   Waiting For Payment
+                                            </a>
+
+                                   </td>
+                                   <td ng-if="x.req_status.id==4">
+                                      <a class= "payment-class-doc-trans" ng-click = "chgflg5(x.id)" enabled="false"  >
+                                          Payment Recieved
+                                   </a>
+                                   <a class= "payment-class-doc-red" enabled="false" >
+                                          Payment Not Recieved
+                                   </a>
+
+                                  </td>
+                                  <td ng-if="x.req_status.id==5">
+                                     <label class= "em-button-doc"  style= "width: 19%; margin-right: 10px;">
+                                         <a class= "icon-no-hov" style= "margin-right: 20px; margin-top: -4px;color: #8c8c8c;font-size: 16px; text-align: center; float: right;" href="#"><i class="fas fa-phone"></i></a>
+                                         <a class= "icon-no-hov" style= "margin-right: 9px; font-size: 17px;margin-top: -4px; text-align: center;color: #8c8c8c; float: right;"href="#"><i class="fas fa-video"></i></a> 
+                                         <a class= "payment-class-doc-trans" ng-if = "x.doc.medical_service_id != 2" href="#!doctorhome/{{x.user_id}}" enabled="false">Suggest Test</a>
+                                     </label>
+
+                                 </td>
+                                </tr>
+                            </tbody><!-- 
+                            <tbody ng-if = "notiPop== 0">
+                                <h4>No New Notofications</h4>
+                            </tbody> -->
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /# column -->
+    </div>
+    </div>

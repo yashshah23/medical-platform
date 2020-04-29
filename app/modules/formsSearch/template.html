@@ -1,0 +1,69 @@
+<div class="card-panel">
+	<h6 ng-show = "CurrentUserAdmin">Search By Master</h6>
+	<hr ng-show = "CurrentUserAdmin"/>
+	<form class="col s12" name="searchform" ng-submit="search(searchform)">
+		<div ng-show = "CurrentUserAdmin">
+			<md-input-container class="fill-width" style="margin-top:11px;">
+
+				<md-select ng-model="selectedMaster" name="selectedMaster" multiple="multiple" placeholder="Select Master" ng-change="changeMaster(selectedMaster)">
+					<md-option ng-value="x.id" ng-repeat="x in masters">{{ x.title }}</md-option>
+				</md-select>
+			</md-input-container>
+		</div>
+		<div class="row" ng-repeat="r in data.criteria" ng-show = "CurrentUserAdmin">
+			<div ng-repeat="x in r">
+				<div class="input-field col s4">
+					<input type="text" id="auto{{x.id}}" class="autocomplete" ng-model="x.value">
+					<label for="auto{{x.id}}">{{x.title}}</label>
+				</div>
+				<div class="chip" ng-repeat="x in selectedPeople">
+					<img src="{{x.photo}}" alt="{{x.first_name + ' ' + x.last_name}}"> {{x.first_name + ' ' + x.last_name}} ({{x.role}})
+					<i class="close material-icons" ng-click="unselectPerson(x)">close</i>
+				</div>
+			</div>
+		</div>
+		<hr/>
+		<h6>Search By Form</h6>
+		<div>
+			<md-input-container class="fill-width" style="margin-top:11px;">
+
+				<md-select ng-model="selectedForm" name="search" multiple="multiple" placeholder="Select Form"  ng-change="changeForm(selectedForm)"> 
+					<md-option ng-value="x.id" ng-repeat="x in forms track by $index"  ng-show="x.UserId.split(',').includes(currentUserId.toString()) || userIdsGroups[$index].includes(currentUserId.toString()) || CurrentUserAdmin">{{ x.title }}</md-option>
+				</md-select>
+			</md-input-container>
+		</div>
+		<!-- <div ng-messages="searchform.search.$error && !searchform.search.$pristine" md-auto-hide="false">
+			<div style="color:red" ng-message="required">Required</div>
+		</div> -->
+		<div class="row">
+			<div class="input-field col s12">
+				<button class="btn waves-effect waves-light" type="submit" name="action">Search
+					<i class="material-icons right">search</i>
+				</button>
+			</div>
+		</div>
+	</form>
+	<div>
+		 <h2  ng-if ="norecord == true" class="no-record-found-text">No record found</h2> 
+	</div>
+	<div ng-if ="norecord == false">
+		<div ng-if="data.flatResults">
+			<h6>RESULTS</h6>
+			<hr>
+			<div ui-grid="gridOptions" ui-grid-resize-columns ui-grid-move-columns ui-grid-exporter ui-grid-auto-resize></div>
+			<!--<div ng-repeat="(key, value) in data.assortedResults">-->
+			<!--	<h7>{{key.toUpperCase()}}</h7>-->
+			<!--	<table>-->
+			<!--		<tr ng-repeat="(k, v) in value">-->
+			<!--			<td ng-if="$parent.$index == 0" ng-repeat="(x, y) in v"><b>{{x}}</b></td>-->
+			<!--		</tr>-->
+			<!--		<tr ng-repeat="(k, v) in value">-->
+			<!--			<td ng-repeat="(x, y) in v">{{y}}</td>-->
+			<!--		</tr>-->
+			<!--	</table>-->
+			<!--	<hr>-->
+			<!--</div>-->
+	
+		</div>
+	</div>
+</div>

@@ -1,0 +1,163 @@
+<!-- <div class="section">
+  <main>
+    <div class="main-container">
+      <section class="demo-container md-whiteframe-z1">
+        <md-toolbar class="demo-toolbar md-primary _md _md-toolbar-transitions blue">
+          <div class="md-toolbar-tools">
+            <h3 class="ng-binding ng-isolate-scope"><a class="docs-anchor ng-scope">{{M.HEADING_LOGIN}}</a></h3>
+            <span flex="" class="flex"></span>
+          </div>
+        </md-toolbar>
+        <md-content layout-padding class="layout-padding _md">
+          <form autocomplete="off" name="forms.loginForm" ng-submit="login()">
+          	<input id="usernamefake" style="display:none" type="email" name="fakeusernameremembered">
+			<input id="passwordfake" style="display:none" type="password" name="fakepasswordremembered">
+			<div>
+				<md-input-container class="md-block">
+	              <label for="email">{{M.FIELD_EMAIL_ENTER}}:</label>
+	              <input autocomplete="npne" id="email" name="email" type="email" class="validate" ng-model="email" readonly onfocus="this.removeAttribute('readonly');" required>
+	              <div ng-messages="forms.loginForm.email.$error" ng-show="forms.loginForm.email.$dirty">
+	                <div ng-message="required">{{M.REQUIRED}}</div>
+	                <div ng-message="email">{{M.INVALID_EMAIL}}</div>
+	              </div>
+	            </md-input-container>
+			</div>
+            
+			<div>
+				<md-input-container class="md-block">
+	              <label for="password">{{M.FIELD_PASSWORD_ENTER}}:</label>
+	              <input autocomplete="none" id="password" name="password" type="password" class="validate" ng-model="password" readonly onfocus="this.removeAttribute('readonly');" required>
+	              <div ng-messages="forms.loginForm.password.$error" ng-show="forms.loginForm.password.$dirty">
+	                <div ng-message="required">{{M.REQUIRED}}</div>
+	              </div>
+	            </md-input-container>
+			</div>
+            
+
+            <div class='row'>
+              <button type='submit' name='btn_login' class='btn waves-effect blue'>{{M.BTN_LOGIN}}</button>
+              &nbsp;<spinner/>
+              <p class="small col-red" ng-if="error">{{error}}</p>
+            </div>
+
+            <div class='row'>
+              <label style='float: right;text-decoration: underline'>
+							<a class='blue-text' href='#!forgot-password'><b>{{M.LNK_FORGOT_PASSWORD}}</b></a>
+						</label>
+              <p style="float: right">&nbsp;</p>
+              <label ng-if="S.openRegistration" style='float: right;text-decoration: underline'>
+							<a class='blue-text' href='#!register'><b>{{M.LNK_REGISTER}}</b></a>
+						</label>
+            </div>
+          </form>
+        </md-content>
+      </section>
+  </main>
+</div> -->
+
+
+ 
+     <div style="background:#9554c7; height:100vh; width:100%; background-size: auto;">
+        <div class="logo-section logo-section-top-mar">
+            <img src="styles/images/logo-mediq.png" alt="" />
+          </div>
+          
+          <div class="page-heading-text-section welcome-text">Welcome</div>
+          
+          <div class="row">
+            <form class="col s12 form-box-width" name="forms.loginForm"  ng-submit="login()">
+              <div class="row">
+                <div class="input-field col s12">
+                  <i class="material-icons prefix">person</i>
+                  <input id="icon_prefix" name = "email" type="email" class="validate" ng-model="email" placeholder="Email (Example= abc@example.com)" readonly onfocus="this.removeAttribute('readonly');" required>
+                  <div ng-messages="forms.loginForm.email.$error" ng-show="forms.loginForm.email.$dirty">
+                    <div style = "color:#eb0f0f;" ng-message="required">{{M.REQUIRED}}</div>
+                    <div style = "color:#eb0f0f;" ng-message="email">{{M.INVALID_EMAIL}}</div>
+                  </div>
+                </div>
+                <div class="input-field col s12">
+                  <i class="material-icons prefix">lock</i>
+                  <input  autocomplete="none" id="icon_prefix" name="password" type="password" placeholder="Password (Example = 123@User)" class="validate" ng-model="password" readonly onfocus="this.removeAttribute('readonly');" required>
+                  <div ng-messages="forms.loginForm.password.$error" ng-show="forms.loginForm.password.$dirty">
+                      <div style = "color:#eb0f0f;" ng-message="required">{{M.REQUIRED}}</div>
+                      <div style = "color:#eb0f0f;" ng-message="password">{{M.INVALID_EMAIL}}</div>
+                    </div>
+                </div>
+                
+                <div class='row'>
+                      &nbsp;<spinner/>
+                  <p class="small col-red" style = "color:#eb0f0f;" ng-if="error">{{error}}</p>
+                </div>
+              </div>
+              
+              <button type='submit' class="btn waves-effect waves-light sign-up-buttom" name='btn_login'><a href="">Login</a>
+                <i class="material-icons right">send</i>
+              </button>
+              <div class="forgot-password"><a href="#!forgot-password">Forgot Password?</a></div>
+              <div class="dont-have-account-text"><a href="#!register">Don't have an account?</a></div>
+            </form>
+          </div>
+
+     </div>
+
+     <!-- <div class="row" style="background:#9554c7; height:100%; width:100%;">
+        <div class="input-field col s12">
+
+          </div>                      
+     </div> -->
+
+
+
+   
+<!-- <div class="logo-section logo-section-top-mar">
+  <img src="styles/images/logo-mediq.png" alt="" />
+</div>
+<div class="page-heading-text-section welcome-text">Welcome</div>
+
+<div class="row">
+      <form class="col s12 form-box-width" autocomplete="off" ng-submit="login()">
+        <div class="row">
+          
+          <md-input-container>
+              <label for = "icon_prefix" >Phone Number Or Email</label>
+              <div class="input-field col s12">
+                <i class="material-icons prefix">person</i>
+                <input id="icon_prefix" name = "email" type="email" class="validate" ng-model="email" readonly onfocus="this.removeAttribute('readonly');" required>
+                <div ng-messages="forms.loginForm.email.$error" ng-show="forms.loginForm.email.$dirty">
+                  <div ng-message="required">{{M.REQUIRED}}</div>
+                  <div ng-message="email">{{M.INVALID_EMAIL}}</div>
+                </div>
+              </div>
+          </md-input-container>
+          <br>
+          <md-input-container>
+              <label for="icon_prefix">Password</label>
+              <div class="input-field col s12">
+                <i class="material-icons prefix">lock</i>
+                <input  autocomplete="none" id="icon_prefix" name="password" type="password" class="validate" ng-model="password" readonly onfocus="this.removeAttribute('readonly');" required>
+                <div ng-messages="forms.loginForm.email.$error" ng-show="forms.loginForm.email.$dirty">
+                    <div ng-message="required">{{M.REQUIRED}}</div>
+                    <div ng-message="email">{{M.INVALID_EMAIL}}</div>
+                  </div>
+              </div>
+          </md-input-container>
+    
+        </div>
+        
+        <div>
+            <button type='submit' class="btn waves-effect waves-light sign-up-buttom" name='btn_login'><a href="">Login</a>
+              <i class="material-icons right">send</i>
+            </button>
+            &nbsp;<spinner/>
+            <p class="small col-red" ng-if="error">{{error}}</p>
+        </div>
+    
+    
+        <div class="forgot-password"><a href="forgot-password.html">Forgot Password?</a></div>
+        <div class="dont-have-account-text"><a href="sign-up.html">Don't have an account?</a></div>
+      </form>
+</div> -->
+   
+
+  
+

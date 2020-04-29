@@ -1,0 +1,45 @@
+
+
+	<div class="content-section-bx" ng-init = "load()">
+			<h2>
+			  <a href="#!account_setting" class="left-back-icon">
+				<i class="material-icons back-icon">navigate_before</i>
+			  </a>
+			  <em>
+				My Doctors
+			  </em>
+			</h2>
+
+			<div class= "profile-details">
+				<div class= "search-class">
+		<div class="wrap wrap-order-medicine">
+			<div class="search">
+				<input type="text" class="searchTerm" placeholder="Search...">
+				<i class="fa fa-search search-icon"></i>
+			</div>
+		</div>
+		<a href= "#"> <i class="fas fa-sort-amount-down"></i></a>
+		</div>
+				<div class= "appointment-top-box">
+					<ul>
+						<li ng-repeat = "x in mydocs">
+						<a href ="doctorprofile.html">
+							<span><img src="styles/images/doctor-logo.png" alt="badge"></span>
+							<strong style= "width: 50%;">
+								<h3>{{x.doc.doctor_name}}</h3>
+								<h4>{{x.doc.specialization}}</h4>
+								<p>{{x.doc.education}}</p>
+							</strong>
+                            <em>
+                                <a  class= "payment-class-doc-vc" ng-if = "x.req_status.id == 5" href="#"><i class="fas fa-phone"></i></a>
+                                <a  class= "payment-class-doc-vc" ng-if = "x.req_status.id == 5" href="#"><i class="fas fa-video"></i></a>
+                                <a class= "payment-class-doc-trans"  ng-if = "x.req_status.id == 3" ng-click = "initPay(x.id)" >Initialize Payment</a>
+                                <a class= "payment-class-doc"  ng-if = "x.req_status.id == 1">Pending Request</a>
+                                <a class= "payment-class-doc-pmt"  ng-if = "x.req_status.id == 4" >Pending Payment</a>
+                            </em>
+						</a></li>
+					</ul>
+				</div>
+			</div>
+	</div>
+</div>

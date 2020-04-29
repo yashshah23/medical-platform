@@ -1,0 +1,13 @@
+<div class="jumbotron jumbotron-fluid bg-light">
+	<h5>{{data_report_original[0].charts.module_name}}</h5>
+	<hr/>
+	<div ng-repeat="json in myJson">
+		<zingchart zc-json="json" zc-height=500 zc-width=1000></zingchart>
+	</div>
+	<div class="fixed-action-btn">
+		<abbr title="Back"><a class="btn-floating btn-large teal" href="#!/reporthome">
+			<i class="large material-icons">arrow_back</i>
+		</a></abbr>
+	</div>
+	<modal options="modalOptions"></modal>
+</div>

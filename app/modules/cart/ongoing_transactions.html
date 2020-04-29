@@ -1,0 +1,27 @@
+
+
+	<div class="content-section-bx" ng-init = "load()">
+			<h2 style="margin-bottom: -6px;">
+			  <a href="#!" class="left-back-icon">
+				<i class="material-icons back-icon">navigate_before</i>
+			  </a>
+			  <em>
+				All Ongoing Lab Transactions
+			  </em>
+			</h2>
+
+			<div class= "profile-details" ng-repeat = "x in trans">
+				<div class= "appointment-top-box">
+					<ul>
+						<li><a href ="">
+							<span class= "span-type"><i class="fas fa-flask"></i></span>
+							<strong class= "width-82">
+								<h3>{{x.lab_organization.name}}</h3>
+								<h4 class= "line-height">All Tests</h4>
+							</strong>
+						</a></li>
+					</ul>
+				</div>
+			</div>
+	</div>
+</div>

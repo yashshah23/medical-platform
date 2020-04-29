@@ -1,0 +1,39 @@
+
+	<div ng-init = "load()" class="content-section-bx">
+			<h2>
+			  <a href="online-visit-tab.html" class="left-back-icon">
+				<i class="material-icons back-icon">navigate_before</i>
+			  </a>
+			  <em>
+				Available Doctors
+			  </em>
+			</h2>
+
+			<div class= "profile-details">
+				<div class= "search-class">
+		<div class="wrap wrap-order-medicine">
+			<div class="search">
+				<input type="text" class="searchTerm" placeholder="Search...">
+				<i class="fa fa-search search-icon"></i>
+			</div>
+		</div>
+		<a href= "#"> <i class="fas fa-sort-amount-down"></i></a>
+		</div>
+				<div class= "appointment-top-box">
+					<ul>
+						<li ng-repeat = "x in doc_pat"><a href ="doctorprofile.html">
+							<span><img src="styles/images/doctor-logo.png" alt="badge"></span>
+							<strong style= "width: 45%;">
+								<h3>{{x.doctor.name}}</h3> <h3 ng-if = "x.patient.user.id == currentUser.id">(Patient:{{x.patient.name}})</h3>
+								<h4>{{x.doctor.position}}</h4>
+								<p>{{x.doctor.status}}</p>
+							</strong>
+							<label class= "em-button-doc"  style= "width: 19%; margin-right: 10px;">
+							<a class= "icon-no-hov" ng-if = "x.patient.user.id == currentUser.id" style= "margin-right: 20px; margin-top: -4px;color: #8c8c8c;font-size: 16px; text-align: center; float: right;" href="#"><i class="fas fa-phone"></i></a><a  ng-if = "x.patient.user.id == currentUser.id" class= "icon-no-hov" style= "margin-right: 9px; font-size: 17px;margin-top: -4px; text-align: center;color: #8c8c8c; float: right;"href="#"><i class="fas fa-video"></i></a><!--<a style= "margin-right: 9px;" href="documents.html"><i class="fas fa-file-alt"></i></a>-->  </label>
+							<a class= "payment-class-doc" ng-if = "x.patient.user.id != currentUser.id" href= "#!/cart">Send Request</a> </em></a>
+							<em style= "width: 38%;">
+						</em></a></li>
+					</ul>
+				</div>
+			</div>
+	</div>

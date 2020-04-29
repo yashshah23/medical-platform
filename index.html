@@ -1,0 +1,220 @@
+<!doctype html>
+<html ng-app='app'>
+
+<head>
+	<!--Append / at the end of URL to load everything properly -->
+	<script>
+		window.onload = function () {
+			var location = "" + window.location;
+			//console.log("Entered");
+			//console.log(location);
+			if (location.charAt(location.length - 1) !== '/') {
+				var newLocation = location + "/";
+				window.location = newLocation;
+			}
+		}
+	</script>
+
+	<!-- JQuery & Angular  -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.2/angular.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.2/angular-route.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-resource/1.7.2/angular-resource.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.2/angular-cookies.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.2/angular-animate.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.2/angular-aria.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.2/angular-messages.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-md5/0.1.10/angular-md5.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" />
+
+	<!-- Angular UI Grid -->
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-grid/4.6.3/ui-grid.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-grid/4.6.3/ui-grid.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+	<script src="http://ui-grid.info/docs/grunt-scripts/csv.js"></script>
+	<script src="http://ui-grid.info/docs/grunt-scripts/pdfmake.js"></script>
+	<script src="http://ui-grid.info/docs/grunt-scripts/vfs_fonts.js"></script>
+	<script src="http://ui-grid.info/docs/grunt-scripts/lodash.min.js"></script>
+	<script src="http://ui-grid.info/docs/grunt-scripts/jszip.min.js"></script>
+	<script src="http://ui-grid.info/docs/grunt-scripts/excel-builder.dist.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.14.1/moment.min.js"></script>
+		<script src = "https://cdnjs.cloudflare.com/ajax/libs/angular-ui-calendar/1.0.0/calendar.js"></script>
+
+	<!-- Metrial Design -->
+	<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script> -->
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+	<!-- Angular Material -->
+	<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.8/angular-material.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.8/angular-material.min.js"></script>
+	
+	<!-- pagination start-->
+   <!-- <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.10/angular.js"></script> -->
+  <script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.11.0.js"></script>
+   <!-- pagination end-->
+  <!-- <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet"> -->
+
+	<!-- Other Libraries -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/zingchart/2.8.0/zingchart.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/zingchart-angularjs/1.2.0/zingchart-angularjs.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angularjs-datepicker/2.1.23/angular-datepicker.js"></script>
+	<link rel="stylesheet"
+		href="https://cdnjs.cloudflare.com/ajax/libs/angularjs-datepicker/2.1.23/angular-datepicker.css" />
+
+		
+	<script src="app/index.php" type='text/javascript'></script>
+	<link rel="stylesheet" href="styles/index.css" />
+	<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css"> -->
+	<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
+	<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script> -->
+
+
+	<!-- Application scripts -->
+	<!--<script src="app/index.js"></script>-->
+	<script src="app/index.php" type='text/javascript'></script>
+	<link rel="stylesheet" href="styles/index.css" />
+	<link rel="stylesheet" href="app/modules/report_data/style/style.css">
+
+	<!-- activate if sllide from right //-->
+	<link rel="stylesheet" href="app/modules/report_data/style/sidenavi-right.css">
+	<script src="app/modules/report_data/style/SideNavi.js"></script>
+
+	<!-- Favicon -->
+	
+
+	<!--Title-->
+</head>
+
+<body>
+	<!--Main Container-->
+	<div>
+			<head>
+					<link rel="shortcut icon" href="images/favicon.ico" />
+			  
+				  <!--Import Google Icon Font-->
+				  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+			  
+				  <!--Import materialize.css-->
+				  <link type="text/css" rel="stylesheet" href="styles/css/materialize.min.css"  media="screen,projection"/>
+				  <link type="text/css" rel="stylesheet" href="styles/css/style.css" />
+				  <link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.0/material.indigo-pink.min.css">
+				  
+				  <!-- Material Design Icons -->
+				  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+				  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ"
+					crossorigin="anonymous">
+			  
+				  <!--Let browser know website is optimized for mobile-->
+				  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+				  <title>MediQ</title>
+				</head>
+				   
+				<!-- <div class="logo-section logo-section-top-mar">
+				  <img src="images/logo-mediq.png" alt="" />
+				</div>
+				<div class="page-heading-text-section welcome-text">Welcome</div> -->
+				
+			  
+				<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header" ng-if = "currentUser">
+					<header class="custom-header mdl-layout__header mdl-layout__header--waterfall custom-header-2" ng-if = "currentUser.role == 'user' || currentUser.role == 'admin'">
+					  <div class="mdl-layout__header-row">
+						<span class="mdl-layout-title"><a href="#!/"><img src="styles/images/logo-mediq.png" alt="" /></a></span>
+						<div class="mdl-layout-spacer"></div>
+						<!--<div class="header-right-icon">
+										  <a href="chat-box.html">
+										  <i class="fas fa-comment"></i>
+										  </a>
+									  </div>-->
+						  <div class="header-right-icon">
+										  <a class="" href="#!">
+											  <i class="material-icons">notifications</i>
+										  </a>
+									  </div>
+						<div class="header-right-icon">
+						  <a class="" href="#!cart">
+						  <i class="material-icons">local_grocery_store</i></a>
+						</div>
+					  </div>
+					</header>
+					<header class="custom-header mdl-layout__header mdl-layout__header--waterfall custom-header-2" ng-if = "currentUser.role == 'technician'">
+						<div class="mdl-layout__header-row">
+						  <span class="mdl-layout-title"><a href="#!/technicianhome"><img src="styles/images/logo-mediq.png" alt="" /></a></span>
+						  <div class="mdl-layout-spacer"></div>
+
+							<div class="header-right-icon">
+								<a class="" href="#!">
+									<i class="material-icons">notifications</i>
+								</a>
+							</div>
+							<div class="header-right-icon">
+								<a class="" href="#!alluploads">
+									<i class="material-icons">file_upload</i>
+								</a>
+							</div>
+							<div class="header-right-icon">
+							  <a class="" href="#!account_setting">
+								  <i class="material-icons">person_pin</i>
+							  </a>
+						  </div>
+						</div>
+						
+					  </header>
+					<header class="custom-header mdl-layout__header mdl-layout__header--waterfall custom-header-2" ng-if = "currentUser.role == 'doctor'">
+					  <div class="mdl-layout__header-row">
+						<span class="mdl-layout-title"><a href="#!/doctorhome"><img src="styles/images/logo-mediq.png" alt="" /></a></span>
+						<div class="mdl-layout-spacer"></div>
+						  <div  ng-controller = "docnotiController" class="header-right-icon">
+										  <a class="" href="#!docnoti" style="float:left;">
+											  <i class="material-icons">notifications</i>
+											</a>
+											<span class="notification-icon">{{notiPop}}</span>
+										</div>
+										<div class="header-right-icon">
+										  <a class="" href="#!patienthistory">
+											  <i class="material-icons">call</i>
+										  </a>
+									  </div>
+										<div class="header-right-icon">
+										  <a class="" href="#!calender">
+											  <i class="material-icons">date_range</i>
+										  </a>
+									  </div>
+										<div class="header-right-icon">
+										  <a class="" href="#!doctorprofile">
+											  <i class="material-icons">person_pin</i>
+										  </a>
+									  </div>
+										<div class="header-right-icon">
+										  <a class="" href="#!account_setting">
+											  <i class="material-icons">power_settings_new</i>
+										  </a>
+									  </div>
+					  </div>
+					</header>
+				</div>
+
+			<div ng-view></div>
+		
+		<div class= "fixed-footer" ng-if = "currentUser.role != 'doctor' && currentUser.role != 'technician' && currentUser">
+			<ul> 	
+				<li>
+					<a href= "#!/"><i class="fas fa-home"></i><p>Home</p></a>
+				</li>
+				<li>
+					<a href= "#!/nearby_store"><i class="fas fa-search"></i><p>Search</p></a>
+				</li>
+				<li>
+					<a href= "#!/lab_select"><i class="fas fa-flask"></i><p>Lab Test</p></a>
+				</li>
+				<li>
+					<a href= "#!/account_setting"><i class="fas fa-user"></i><p>My Profile</p></a>
+				</li>
+			</ul>
+		</div>
+
+	</div>
+</body>
+</html>

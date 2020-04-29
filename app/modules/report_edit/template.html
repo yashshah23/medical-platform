@@ -1,0 +1,113 @@
+<div class="jumbotron jumbotron-fluid bg-light">
+		<h6>{{M.FIELD_REPORT}}</h6>
+		<hr/>
+		<form>
+			<md-input-container class="md-block">
+				<label class="active">Enter Report Name:</label>
+				<input id="module_name" name="module_name" type="text" class="validate" ng-model="module_name" required>
+			</md-input-container>
+		</form>
+		
+		<!-- <div>
+				<outer-comp></outer-comp>
+		</div> -->
+			<div ng-repeat="x in number_of_charts">
+			<!--<div class="side-navi-item-default"></div>-->
+			<div ng-if = "(form_name[x] != undefined) && (showChart[x])" >
+				<zingchart zc-json="myJson[x]" zc-height=500 zc-width=1000></zingchart>
+			</div>
+			<!--<div class="side-navi-item item1"><div><i class="material-icons">insert_chart</i></div></div>-->
+			<!--<div class="side-navi-data">-->
+				<!--<div class="side-navi-tab" style="padding: 40px;width: 90%;">-->
+				<form name="forms.report_dataForm">
+					<md-input-container class="md-block">
+						<label for="report_data_name" class="active">Widget Name:</label>
+						<input id="report_data_name" name="report_data_name" type="text" class="validate" ng-model="report_data_name[x]" required>
+						<div ng-messages="forms.report_dataForm.report_name.$error" ng-show="forms.report_dataForm.report_name.$dirty">
+							<div ng-message="required">{{M.REQUIRED}}</div>
+						</div>
+					</md-input-container>
+					<md-input-container class="md-block">
+							<label for="report_data_name" class="active">Form Name:</label>
+						<md-select ng-model="report_data_data_source[x]" ng-change="selecct_feald(x)" placeholder="Form Name:" class="md-no-underline">
+							<!--<md-option ng-repeat="c in tables track by $index" value="{{c.id}}" ng-show="c.UserId.split(',').includes(currentUserId.toString()) || userIdsGroups[$index].includes(currentUserId.toString()) || CurrentUserAdmin">{{c.title}}</md-option>-->
+							<md-option ng-repeat="c in tables track by $index" value="{{c.id}}" ng-show="userIdsGroups[$index].includes(currentUserId.toString()) || c.UserId.split(',').includes(currentUserId.toString()) || CurrentUserAdmin">{{c.title}}</md-option>
+						</md-select>  
+					</md-input-container>
+					<md-input-container class="md-block">
+							<label for="report_data_name" class="active">{{M.FIELD_CHART_TYPE}}:</label>
+						<md-select ng-model="report_data_chart_type[x]" ng-change="change_bar(x)" placeholder="{{M.FIELD_CHART_TYPE}}" class="md-no-underline">
+							<md-option ng-repeat="c in bar_data" value="{{c.type}}">{{c.type}}</md-option>
+						</md-select>    
+					</md-input-container>
+					<md-input-container class="md-block">
+							<label for="report_data_name" class="active">{{M.FIELD_X_AXIS}}:</label>
+						<md-select ng-model="report_data_scale_x[x]" ng-change="change_x(x)" placeholder="{{M.FIELD_X_AXIS}}" class="md-no-underline">
+							<md-option ng-repeat="c in database[x]" value="{{c.field.title}}">{{c.field.title}}</md-option>
+						</md-select>    
+					</md-input-container>
+					
+					<label for="report_data_name" class="active">{{M.FIELD_Y_AXIS}}:</label>
+					<div class="form-group" data-ng-repeat="choice in multiple_choices[x] track by $index">
+							<label for="choice" ng-show="showChoiceLabel(choice)">Choices</label>
+							<div>
+								<md-input-container class="md-block">
+									<md-select ng-model="multiple_choices[x][$index]" placeholder="{{M.FIELD_Y_AXIS}}" class="md-no-underline">
+										<md-option ng-repeat="c in result[x]" value="{{c.field.title}}">{{c.field.title}}</md-option>
+									</md-select>    
+								</md-input-container>
+							</div>
+							<label for="choice" ng-show="showChoiceLabel(choice)">Aggregations</label>
+							<div>
+								<md-input-container class="md-block">
+									<md-select ng-model="multiple_aggregations[x][$index]" placeholder="{{M.FIELD_Y_AXIS}}" class="md-no-underline">
+										<md-option value="no_aggr">None</md-option>
+										<md-option value="count">Count</md-option>
+										<md-option value="sum">Sum</md-option>
+										<md-option value="min">Min</md-option>
+										<md-option value="max">Max</md-option>
+										<md-option value="avg">Average</md-option>
+									</md-select>    
+								</md-input-container>
+							</div>
+							<div>
+								<button ng-show="showAddChoice($index, x) && report_data_chart_type[x] != 'pie'" ng-click="addNewChoice(x)">Add Choice</button>
+								<button ng-show = "report_data_chart_type[x] != 'pie'" ng-click="removeNewChoice(x, $index)">Remove Choice</button>
+							</div>
+				    </div>
+					
+					<div>
+						<button id="prviw" class="btn ng-binding ng-scope" ng-model="report_data_show[x]" ng-click="showData(x)">Preview</button>
+						<button class="btn ng-binding ng-scope" ng-click="back()">Back</button>
+						<button class="btn ng-binding ng-scope"  ng-show="lastValueDisplay($index)" ng-click="saveData()">Save</button>
+						<button class="btn ng-binding ng-scope"  ng-show="lastValueDisplay($index)" ng-click="addNewChart(x)">Add New Chart</button>  
+						<button class="btn ng-binding ng-scope"  ng-click="removeNewForm($index)">Remove</button>   
+					</div>
+				</form>
+				<!--</div>-->
+				<!--</div>-->
+			</div>
+			<modal options="modalOptions"></modal>
+	</div>
+	
+	<script type="text/javascript">
+	$(document).ready(function(){
+			setTimeout(function(){
+				$("#prviw").click();
+			}, 1000);
+	});
+		$(document).ready( function () {
+			$(window).on('load',function(){
+				
+			});
+			SideNavi.init('right', {
+				container : '#sideNavi',
+				defaultitem : '.side-navi-item-default',
+				item : '.side-navi-item',
+				data : '.side-navi-data',
+				tab : '.side-navi-tab',
+				active : '.active'
+			});
+		});
+	
+	</script>

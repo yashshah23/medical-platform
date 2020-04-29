@@ -1,0 +1,240 @@
+<div class="card-panel">
+	<div ng-init="load()">
+		<h6>MASTER DETAILS</h6>
+		<hr/>
+
+		<div class="row">
+			<form name="masterForm">
+				<div class="input-field">
+					<div>
+						<label for="input">
+							<span style="color:red">*</span>Master Name</label>
+					</div>
+					<input id="input" type="text" name="name" class="validate" ng-model="master.title" ng-blur = "uniquemaster(master.title)" required autofocus>
+					<span style="color:red" ng-show="masterForm.name.$dirty && masterForm.name.$invalid">
+						<span ng-show="masterForm.name.$error.required">Required*</span>
+					</span>
+				</div>
+				<div class="input-field">
+					<div>
+						<label for="input">
+							Master Description
+						</label>
+					</div>
+					<textarea id="textarea" name="description" class="materialize-textarea" ng-model="master.description" autofocus></textarea>
+					<!-- <span style="color:red" ng-show="masterForm.description.$dirty && masterForm.description.$invalid">
+						<span ng-show="masterForm.description.$error.required">Required*</span>
+					</span> -->
+				</div>
+
+				<div class="row" style="margin-bottom: -25px;" ng-if="data.master.length">
+					<div class="input-field col s3" style="margin-left: -10px; margin-top: 32px;">
+						<label for="title">This Master is child of </label>
+					</div>
+
+					<div class="input-field col s4" style="margin-left: -46px;">
+						<md-input-container class="fill-width">
+							<md-select ng-model="master.parentMaster" placeholder="Select Parent Master" ng-change="selectedParentMasterChanged(master.parentMaster)">
+								<md-option ng-value="opt.id" ng-repeat="opt in data.master track by $index">{{ opt.title }}</md-option>
+							</md-select>
+						</md-input-container>
+					</div>
+
+					<div class="input-field col s4">
+						<md-input-container class="fill-width">
+							<md-select ng-model="master.parentMasterDisplayField" ng-change="selectedParentDisplayFieldChanged(master.parentMasterDisplayField)"
+							 placeholder="Display Field">
+								<md-option ng-value="opt.id" ng-repeat="opt in data.default_fields track by opt.id">{{ opt.title }}</md-option>
+							</md-select>
+						</md-input-container>
+					</div>
+
+					<!-- <div class="input-field col s1" ng-if="isMasterClicked">
+						<abbr title="Add"><a class="btn-floating blue darken-4" href=""
+								ng-click="addMasterFieldSource(master.parentMaster, master.parentMasterDisplayField)">
+								<i class="material-icons">add</i>
+							</a></abbr>
+					</div> -->
+				</div>
+
+				<!-- <div class="row" ng-if="isCollectionMasterDisabled">
+
+					<ul class="collection" ng-repeat="x in MasterFormFieldSource track by $index">
+						<i class="close material-icons" style="float: right; cursor: pointer;"
+							ng-click="masterDelete(MasterFormFieldSource[$index][0].id)">close</i>
+						<li class="collection-item">
+							<div>
+								{{MasterFormFieldSource[0]}}
+							</div>
+						</li>
+					</ul>
+				</div> -->
+
+
+			</form>
+			<div style="margin-top: 50px">
+				<h6>Master Fields</h6>
+			</div>
+			<hr/>
+			<form style="margin-top: 40px">
+				<div class="row">
+					<div class="input-field col s4">
+						<input id="title" type="text" class="validate" ng-model="data.title">
+						<label for="title">Field Name</label>
+					</div>
+					<div class="input-field col s3">
+						<select ng-model="data.field_type" id="fieldTypes" ng-change="masterTypeChanged(remaningfields)">
+							<option value="" disabled selected>Choose your option</option>
+							<option ng-repeat="x in fieldTypes track by x.id" value={{x.id}} ng-if="x.id == 1 || x.id == 2 || x.id == 3 || x.id == 6 || x.id == 7">{{x.title}}</option>
+						</select>
+						<label>Field Type</label>
+					</div>
+
+					<div class="input-field col s2" ng-if="!isAutoIncrementDisabled">
+						<label style="margin-top: 13px; margin-left: 29px;">
+							<input style="margin-left: -19px; margin-top: 5px;" id="Primary" type="checkbox" class="validate" ng-model="data.is_autoIncrement"
+							 name="Primary" />Auto Increment
+						</label>
+					</div>
+
+					<div class="input-field col s2" ng-if="!isPrimaryDisabled">
+						<label style="margin-top: 13px; margin-left: 40px;">
+							<input style="margin-left: -19px; margin-top: 5px;" id="Primary" type="checkbox" class="validate" ng-model="data.is_primary"
+							 name="Primary" />Primary
+						</label>
+					</div>
+
+
+
+					<div class="input-field col s1" style="margin-top: 0px;margin-left: 284px;">
+						<abbr title="Add"><a id="reset" class="btn-floating blue darken-4" href="" ng-click="addField(data.title,data.field_type,data.is_primary,data.is_autoIncrement)">
+							<i class="material-icons">add</i>
+						</a></abbr>
+					</div>
+				</div>
+
+				<div class="row" ng-if="data.field_type == 3">
+					<div class="input-field col s7">
+						<input id="fieldSourceItem" type="text" class="validate" ng-keyup="$event.keyCode == 13 ? addFieldSource(data.title, fieldSourceItem) : ''"
+						 ng-model="fieldSourceItem">
+						<label for="fieldSourceItem">Data Item</label>
+					</div>
+					<div class="input-field col s1">
+						<abbr title="Add"><a class="btn-floating blue darken-4" href="" ng-click="addFieldSource(data.title, fieldSourceItem)">
+							<i class="material-icons">add</i>
+						</a></abbr>
+					</div>
+
+				</div>
+				<ul class="collection" ng-show="data.field_type && data.field_type == 3">
+					<li class="collection-item" ng-repeat="x in fieldSources[data.title]  track by $index">{{x}}
+						<span>
+							<abbr title="Close"><a class="btn-floating red btn-small" id="fieldsssss" style="float:right" ng-click="fieldSources[data.title].splice($index,1);">
+								<i class="material-icons">close</i>
+							</a></abbr>
+						</span>
+					</li>
+				</ul>
+				<ul ng-show="id" class="collection" ng-show="data.field_type && selectedFieldTypeCategory =='list'">
+					<li class="collection-item" ng-repeat="x in remaningfields">{{x.title}}
+						<span>
+							<abbr title="Close"><a class="btn-floating red btn-small" style="float:right" ng-click="fields.splice($index,1);">
+								<i class="material-icons">close</i>
+							</a></abbr>
+						</span>
+					</li>
+				</ul>
+				<table>
+					<thead>
+						<tr>
+							<th>Field Name</th>
+							<th>Field Type</th>
+							<th>Auto Increment</th>
+							<th>Primary</th>
+							<th>Action</th>
+						</tr>
+					</thead>
+
+					<tbody>
+						<tr ng-show="existingfields.length" ng-repeat="x in existingfields track by $index">
+							<td>{{x.title}}</td>
+							<td>{{ x.field_type.title }} </td>
+							<td>{{x.is_autoIncrement ? 'True' : 'False'}} </td>
+							<td>{{x.is_primary ? 'True' : 'False'}} </td>
+							<td>
+								<span>
+									<a class="btn-floating blue darken-4 btn-small" ng-click="swapField($index, $index + 1,'existingFormfields')">
+										<i class="material-icons">arrow_downward</i>
+									</a>
+								</span>
+
+								<span>
+									<a class="btn-floating blue darken-4 btn-small" ng-click="swapField($index, $index - 1,'existingFormfields')">
+										<i class="material-icons">arrow_upward</i>
+									</a>
+								</span>
+								<span>
+									<abbr title="Close"><a class="btn-floating red btn-small" ng-click="launchDelete(x,$index)">
+										<i class="material-icons">close</i>
+									</a></abbr>
+								</span>
+							</td>
+						</tr>
+						<tr ng-show="fields.length" ng-repeat="x in fields track by $index">
+
+							<td>{{x.title}}</td>
+							<td>{{ x.field_type.title }} </td>
+							<td>{{x.is_autoIncrement ? 'True' : 'False'}} </td>
+							<td>{{x.is_primary ? 'True' : 'False'}} </td>
+							<td>
+								<span>
+									<a class="btn-floating blue darken-4 btn-small" ng-click="swapField($index, $index + 1,'fields')">
+										<i class="material-icons">arrow_downward</i>
+									</a>
+								</span>
+
+								<span>
+									<a class="btn-floating blue darken-4 btn-small" ng-click="swapField($index, $index - 1,'fields')">
+										<i class="material-icons">arrow_upward</i>
+									</a>
+								</span>
+								<span>
+									<abbr title="Delete"><a class="btn-floating red btn-small" ng-click="fields.splice($index,1);">
+										<i class="material-icons" ng-click="deletefields(x)">close</i>
+									</a></abbr>
+								</span>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</form>
+
+
+
+
+			<div class="fixed-action-btn">
+				<a class="btn-floating btn-large teal" href="">
+					<i class="large material-icons">menu</i>
+				</a>
+				<ul>
+					<li>
+						<abbr title="Cancel"><a class="btn-floating yellow darken-4" ng-click="cancelForm()">
+							<i class="material-icons">cancel</i>
+						</a></abbr>
+					</li>
+					<li ng-show="!id">
+						<abbr title="Save"><a class="btn-floating green darken-4" ng-click="saveMaster()" ng-disabled="isDisabled">
+							<i class="material-icons">save</i>
+						</a></abbr>
+					</li>
+					<li ng-show="id">
+						<abbr title="Save"><a class="btn-floating green btn tooltipped" ng-click="save()">
+							<i class="material-icons">save</i>
+						</a></abbr>
+					</li>
+				</ul>
+			</div>
+			<modal options="modalOptions"></modal>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,175 @@
+<!-- <div class="content-section-bx" ng-init = "load()">
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-title">
+                    <h4>Welcome to {{orgname}}</h4>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <tbody  ng-repeat = "x in requests">
+                                <tr>
+                                    <td></td>
+                                    <td><b> Sender : </b><br> {{x.users.first_name}} {{x.users.last_name}}</td>
+                                    <td> <b>  Appointment Date : </b><br> {{x.date_sel_user}}</td>
+                                    <td><b> Patient : </b><br> {{x.patient}}</td>
+                                    <td><b> Comments : </b><br> {{x.description}}</td>
+                                    <td ng-if="x.type.id!=2"></td>
+                                    <td  ng-if="x.req_status.id==1">
+
+                                            <a class= "payment-class-doc-trans" ng-click = "chgflg3(x.id)" enabled="false"  >
+                                                    Accept Request
+                                             </a>
+                                             <a class= "payment-class-doc-red" enabled="false" >
+                                                    Reject Request
+                                             </a>
+
+                                    </td>
+                                    <td ng-if="x.req_status.id==3">
+                                            <a class= "payment-class-doc" enabled="false" >
+                                                   Waiting For Payment
+                                            </a>
+
+                                   </td>
+                                   <td ng-if="x.req_status.id==4">
+                                      <a class= "payment-class-doc-trans" ng-click = "chgflg5(x.id)" enabled="false"  >
+                                          Payment Recieved
+                                   </a>
+                                   <a class= "payment-class-doc-red" enabled="false" >
+                                          Payment Not Recieved
+                                   </a>
+
+                                  </td>
+                                  <td ng-if="x.req_status.id==5">
+                                     <label class= "em-button-doc"  style= "width: 19%; margin-right: 10px;">
+                                         <a class= "icon-no-hov" style= "margin-right: 20px; margin-top: -4px;color: #8c8c8c;font-size: 16px; text-align: center; float: right;" href="#"><i class="fas fa-phone"></i></a>
+                                         <a class= "icon-no-hov" style= "margin-right: 9px; font-size: 17px;margin-top: -4px; text-align: center;color: #8c8c8c; float: right;"href="#"><i class="fas fa-video"></i></a> 
+                                         <a class= "payment-class-doc-trans" ng-if = "x.doc.medical_service_id != 2" href="#!doctorhome/{{x.user_id}}" enabled="false">Suggest Test</a>
+                                     </label>
+
+                                 </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div> -->
+
+    
+    
+
+	<div ng-init = "load()" class="content-section-bx">
+        <h2>
+          <a href="#!homeopathy_service" class="left-back-icon">
+            <i class="material-icons back-icon">navigate_before</i>
+          </a>
+          <em>
+            Available Homeopathy Doctors
+          </em>
+        </h2>
+
+        <div class= "profile-details">
+            <div class= "search-class">
+    <div class="wrap">
+        <div class="search">
+            <input type="text" ng-model = "srch" ng-change = "searching()" class="searchTerm" placeholder="Search...">
+            <i class="fa fa-search search-icon"></i>
+        </div>
+    </div>
+
+          <div ng-if = "input"><input type="text" ng-change = "inpChng(inputname)" placeholder="Enter Patient Name" ng-model = "inputname"></div>
+
+    </div>
+    
+    <div class= "appointment-top-box">
+                <ul>
+                    <li ng-repeat = "x in doc_pat" ng-if = "x.medical_service.id == 1 && !filtered">
+                        <a>
+                        <span><img src="styles/images/doctor-logo.png"  alt="badge"></span>
+                        <strong>
+                           <h3>{{x.doctor_name}}</h3>
+                            <h4>{{x.specialization}}</h4>
+                            <p>{{x.education}}</p>
+                        </strong>
+                        
+                        <em > 
+                                <a class= "payment-class-doc"  ng-if = "hasDoc(x.id) != 1" ng-click = "sendReq(x.id)" >
+                                        Send Request     
+                                    </a>
+                                    
+                                <a class= "payment-class-doc-trans"  ng-if = "hasDoc(x.id) == 1" >
+                                        In Progress  
+                                    </a>
+                    </em></a></li>
+                    
+                    <!-- <li ng-if = "filtered" ng-repeat = "x in filtered"><a>
+                            <span><img src="styles/images/doctor-logo.png" alt="badge"></span>
+                            <strong style= "width: 45%;">
+                                <h3>{{x.available_doc_day.doctor.doctor_name}}</h3> 
+                                <h4>{{x.available_doc_day.doctor.specialization}}</h4>
+                                <p>{{x.available_doc_day.doctor.education}}</p>
+                                <button ng-click = "onclking()" class="accordion">View Details</button>
+                                    <div class="panel">
+                                    <p><p>From: {{x.from}}</p>To: {{x.to}}<p></p>
+                                    </div>
+                                
+                            </strong>
+                            <label class= "em-button-doc"  style= "width: 19%; margin-right: 10px;">
+                                <a class= "icon-no-hov" ng-if = "x.patient.user.id == currentUser.id" style= "margin-right: 20px; margin-top: -4px;color: #8c8c8c;font-size: 16px; text-align: center; float: right;" href="#"><i class="fas fa-phone"></i></a>
+                                <a  ng-if = "x.patient.user.id == currentUser.id" class= "icon-no-hov" style= "margin-right: 9px; font-size: 17px;margin-top: -4px; text-align: center;color: #8c8c8c; float: right;"href="#"><i class="fas fa-video"></i></a> 
+                            </label>
+                            <em style= "width: 38%;"> 
+                                    <a class= "payment-class-doc"  ng-if = "hasDoc(x.available_doc_day.doctor.id) != 1" ng-click = "sendReq(x.id)" >
+                                            Send Request     
+                                        </a>
+                                        
+                                    <a class= "payment-class-doc-trans"  ng-if = "hasDoc(x.available_doc_day.doctor.id) == 1" >
+                                            In Progress  
+                                        </a>
+                        </em></a></li> -->
+                        <li ng-repeat = "x in requests"><a >
+                                <span><img src="styles/images/doctor-logo.png" alt="badge"></span>
+                                <strong>
+                                    <a><h3>{{x.users.first_name}} {{x.users.last_name}}</h3></a> 
+                                    <h4> Date: {{x.date_sel_user}}</h4>
+                                    <p> Patient: {{x.patient}}</p>
+                                    <p>Comments: {{x.description}}</p>
+                                    <!-- <button ng-click = "onclking()" class="accordion">View Details</button> -->
+                                    <table>
+                                        <tr>
+                                            <td style="padding:0px;font-size: 13px;" ng-repeat = "y in usrtests" ng-click = "sendTime(y.id)">
+                                                 
+                                                  From: {{y.fromtime}}, To: {{y.totime}}  
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </strong>
+                                <em> 
+                                        <a class= "payment-class-doc"  ng-if = "hasDoc(x.data[0].available_doc_day.doctor_id) != 1" ng-click = "sendReq(x.data[0].available_doc_day.doctor_id)" >
+                                                Send Request     
+                                            </a>
+                                            
+                                        <a class= "payment-class-doc-trans"  ng-if = "hasDoc(x.data[0].available_doc_day.doctor_id) == 1" >
+                                                In Progress  
+                                            </a>
+                            </em></a></li>
+                            <li  ng-if = "disp.length == 0">
+                                <h3>No Doctors Available</h3>
+                            </li>
+
+                    </li>
+                </ul>
+            </div>
+        </div>
+</div>
+
+<modal options="modalOptions"></modal>
+
+
+<script>
+</script>

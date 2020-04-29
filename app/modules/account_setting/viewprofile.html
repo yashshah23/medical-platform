@@ -1,0 +1,136 @@
+<div class="content-section-bx" ng-init="load()">
+  <h2 style="margin-bottom:-6px;">
+    <a href="#!account_setting" class="left-back-icon">
+      <i class="material-icons back-icon">navigate_before</i>
+    </a>
+    <em>My Profile</em>
+  </h2>
+
+  <div class="profile-details">
+
+    <div id="tab-1" class="tab-content current">
+      <div class="user-info">
+        <div class="user-pic">
+          <a href="#"><img src="styles/images/image.png" /></a>
+        </div>
+      </div>
+
+
+      <div class="row" ng-show="editmode == false">
+        <form class="col s12 form-box-width my-profile-class">
+          <div class="row">
+            <div class="input-field col s12 margin-btm-10px">
+              <i class="material-icons icon-color">person</i>
+              <span> First Name : {{firstname}}</span>
+            </div>
+            <div class="input-field col s12 margin-btm-10px">
+              <i class="material-icons icon-color">person</i>
+              <span> Last Name : {{lastname}}</span>
+            </div>
+            <div class="input-field col s12 margin-btm-10px">
+              <i class="material-icons icon-color">home</i>
+              <span>Current Address: {{addr}}</span>
+            </div>
+            <div class="input-field col s12 margin-btm-10px">
+              <i class="material-icons icon-color">home</i>
+              <span>Consultation Address: {{addr2}}</span>
+            </div>
+            <div class="input-field col s12 margin-btm-10px">
+              <i class="material-icons icon-color">add_location</i>
+              <span>Zip Code : {{zip}}</span>
+            </div>
+            <div class="input-field col s12 margin-btm-10px">
+              <i class="material-icons icon-color">mail</i>
+              <span>Email: {{email}}</span>
+            </div>
+            <div class="input-field col s12 margin-btm-10px">
+              <i class="material-icons icon-color">phone</i>
+              <span>Phone Number : {{phone}}</span>
+            </div>
+            <div class="input-field col s12 margin-btm-10px">
+              <i class="material-icons icon-color">phone</i>
+              <span>Gender : {{gender}}</span>
+            </div>
+            <div class="input-field col s12 margin-btm-10px">
+              <i class="material-icons icon-color">phone</i>
+              <span>City : {{myCity}}</span>
+            </div>
+            <div class="input-field col s12 margin-btm-10px">
+              <i class="material-icons icon-color">phone</i>
+              <span>Area : {{myArea}}</span>
+            </div>
+          </div>
+
+        </form>
+      </div>
+      <div class="row" ng-show="editmode == true">
+        <form class="col s12 form-box-width my-profile-class">
+          <div class="row">
+            <div class="input-field col s12">
+              <i class="material-icons prefix icon-color">person</i>
+              <input style="color: #090000 !important;" ng-model="firstname" placeholder="First Name" type="text"
+                class="validate">
+            </div>
+            <div class="input-field col s12">
+              <i class="material-icons prefix icon-color">person</i>
+              <input style="color: #090000 !important;" ng-model="lastname" placeholder="Last Name" type="text"
+                class="validate">
+            </div>
+            <div class="input-field col s12">
+              <i class="material-icons prefix icon-color">home</i>
+              <input style="color: #090000 !important;" placeholder="Current Address" ng-model="addr" type="text"
+                class="validate">
+            </div>
+            <div class="input-field col s12">
+              <i class="material-icons prefix icon-color">home</i>
+              <input style="color: #090000 !important;" placeholder="Consultation Address" ng-model="addr2" type="text"
+                class="validate">
+            </div>
+            <div class="input-field col s12">
+              <i class="material-icons prefix icon-color">add_location</i>
+              <input style="color: #090000 !important;" placeholder="Zip Code" ng-model="zip" type="tel"
+                class="validate">
+            </div>
+            <div class="input-field col s12">
+              <i class="material-icons prefix icon-color">mail</i>
+              <input style="color: #090000 !important;" placeholder="Email" ng-model="email" type="text"
+                class="validate">
+            </div>
+            <div class="input-field col s12">
+              <i class="material-icons prefix icon-color">phone</i>
+              <input style="color: #090000 !important;" placeholder="Phone Number" ng-model="phone" type="tel"
+                class="validate">
+            </div>
+            <div class="input-field col s12">
+              <i class="material-icons prefix icon-color">group</i>
+              <md-select ng-model="gender" placeholder="Gender" class="md-no-underline">
+                <md-option value="male">Male</md-option>
+                <md-option value="female">Female</md-option>
+                <md-option value="other">Other</md-option>
+              </md-select>
+            </div>
+            <div class="input-field col s12">
+              <i class="material-icons prefix icon-color">group</i>
+              <md-select ng-model="cities" placeholder="City" ng-change="filterArea(cities)" class="md-no-underline">
+                <md-option ng-repeat="x in city" value="{{x.id}}">{{x.city_name}}</md-option>
+              </md-select>
+            </div>
+            <div class="input-field col s12" ng-if = "areas">
+              <i class="material-icons prefix icon-color">group</i>
+              <md-select ng-model="area" placeholder="Areas" ng-change = "getArea(area)" class="md-no-underline">
+                <md-option ng-repeat="x in areas" value="{{x.id}}">{{x.area_name}}</md-option>
+              </md-select>
+            </div>
+          </div>
+
+        </form>
+      </div>
+      <div class="add-button1" ng-if="editmode == false">
+        <a ng-click="edit()" href="">Edit</a>
+      </div>
+      <div class="add-button1" ng-if="editmode == true">
+        <a ng-click="sendReq(area)" href="">Update</a>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,65 @@
+<div class="content-section-bx" ng-init = "load()">
+				<h2 style= "margin: 0px 0 -15px 0;">
+			  <a href="#!lab_select" class="left-back-icon">
+				<i class="material-icons back-icon">navigate_before</i>
+			  </a>
+			  <em>
+				Schedule Lab Test
+			  </em>
+			</h2>
+			
+	<div class= "profile-details-box">
+	 <div class= "appointment-buttons">
+					<h3>Lab Test For </h3>
+					<a ng-click = "setVal('Myself')" href= "" class= "active">Myself</a> <a ng-click = "setVal('Wife')" href= "">Wife</a> <a ng-click = "setVal('Mother')" href= "">Mother</a>
+			  </div>
+			   <div class= "appointment-dating app-date">
+					<h3>Lab Test Date  </h3><div class="calendar-date-box">
+							<input type="date" id="dateday" ng-model = "dateday" class="date-element">
+							<input type="button" ng-click="addDate()" value="submit" class="date-submit-btn"> 
+						   </div>
+			  </div><!-- 
+			  <div class="input-field col s12" style= "width: 80%;">
+				<select class="validate">
+					<option value="" disabled selected>Available Time</option>
+					<option value="1">7:00 - 8 AM</option>
+					<option value="1">8:00 - 9 AM</option>
+					<option value="1">9:00 - 10 AM</option>
+					<option value="1">10:00 - 11 AM</option>
+					<option value="1">11 :00 - 12 PM</option>
+					<option value="1">12:00 - 1 PM</option>
+					<option value="1">1:00 - 2 PM</option>
+					<option value="1">2:00 - 3 PM</option>
+					
+				  </select>
+				<label for="icon_prefix" id="booking-appointments-select-menu">Available Time</label>
+              </div> -->
+			  
+			 <!-- <div class="input-field col s12 " style="margin-bottom: 33px;width: 80%;float: left;">
+				<select class="validate">
+					<option value="" disabled selected>Select Lab Test</option>
+					<option value="1">17 Oh Progesterone</option>
+					<option value="2">Albumin</option>
+					<option value="3">lakaline Phospatase (ALP)</option>
+					<option value="4">Alfa Feto-Protein (AFP)</option>
+					<option value="5">AMH</option>
+					<option value="6">Amylase</option>
+				  </select>
+				<label for="icon_prefix" id="booking-appointments-select-menu">Select Lab Tests</label>
+        </div>
+		<a class= "a-back" href= "#">Add </a> -->
+			 
+			  <!--<div class= "arrow-listing listing" style= "border: none;">
+		<input class= "width-input" type="text" name="name"> <span><i class="fas fa-times"></i></span>
+			   <input class= "width-input" type="text" name="name" ><span><i class="fas fa-times"></i></span>
+			 </div>-->
+			  <div class= "query-box query-b0x-2">
+					<h3 style= "margin-top: 0px;">Additional Comment</h3>
+					<textarea ng-model = "comments" id="subject" name="subject"></textarea>
+			  </div>
+			<div class= "appointment-save-button">
+				<a href="" ng-click = "scheduleTest()">Send Request</a>
+			</div>
+			
+	</div>
+	</div>

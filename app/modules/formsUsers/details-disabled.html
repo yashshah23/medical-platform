@@ -1,0 +1,74 @@
+<div id="maindiv" ng-init="load()" class="card-panel">
+	<h6>USER DETAILS</h6>
+	<hr/>
+
+	<!-- <div layout="column" ng-cloak class="md-inline-form"> -->
+
+		<!-- <md-content layout-padding> -->
+			<div class="row">
+				<form name="userForm" class="col s12">
+
+					<div layout-gt-sm="row">
+						<md-input-container class="md-block" flex-gt-xs>
+							<label autofocus>First name</label>
+
+							<input style = "color: black;" ng-model="data.first_name" name="fname" type="text" ng-pattern="/^(\D)+$/" ng-disabled="true">
+						</md-input-container>
+					</div>
+
+					<div layout-gt-sm="row">
+						<md-input-container class="md-block" flex-gt-xs>
+							<label>Last name</label>
+							<input style = "color: black;" ng-model="data.last_name" name="lname" type="text"  ng-pattern="/^(\D)+$/" ng-disabled="true">
+						
+						</md-input-container>
+					</div>
+
+					<div layout-gt-sm="row">
+						<md-input-container class="md-block" flex-gt-xs>
+							<label>Email</label>
+							<input style = "color: black;" ng-model="data.email" name="email" ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/" type="email" ng-disabled="true">
+						</md-input-container>
+					</div>
+
+					<div layout-gt-sm="row">
+						<md-input-container class="md-block" flex-gt-xs>
+							<label>Roles</label>
+
+							<md-select style = "color: black;" ng-model="data.role" placeholder="Select Role" name='role' ng-disabled="true">
+								<md-option style = "color: black;" value="" disabled selected>Choose your option</md-option>
+								<md-option style = "color: black;" ng-value="opt.title" ng-repeat="opt in roles track by opt.title">{{ opt.title }}</md-option>
+							</md-select>
+						</md-input-container>
+					</div>
+					
+					<div layout-gt-sm="row" class="md-block" >
+						  
+							<label>IsActive</label>
+							<input ng-value="data.is_active" type="checkbox" ng-model="data.is_active" ng-checked="data.is_active" style="margin-left: 24px;
+							margin-top: 4px; color: black;" ng-disabled="true">
+							<!-- <input ng-model="data.is_active" name= "is_active" type="checkbox" ng-checked="data.is_active == true"> -->
+							<!-- <span style = "color:red" ng-show = "userForm.is_active.$dirty && userForm.is_active.$error.required">Required*</span> -->
+						 
+					</div> 
+
+
+				</form>
+
+		<!-- </md-content> -->
+
+	<!-- </div> -->
+
+	<!-- Add Button -->
+	<div class="fixed-action-btn">
+		<abbr title="Back"><a class="btn-floating btn-large teal" href="#!forms-users">
+			<i class="large material-icons">arrow_back</i>
+		</a></abbr>
+	</div>
+
+
+</div>
+
+<modal options="modalOptions"></modal>
+
+</div>

@@ -1,0 +1,50 @@
+<div style="background:#9554c7; height:100%; width:100%; background-size: auto;" ng-init = "load()">
+
+
+<div class="logo-section">
+  <img src="styles/images/logo-mediq.png" alt="" />
+</div>
+<div class="page-heading-text-section">Tell us about you</div>
+
+<div class="row" >
+  <form class="col s12 form-box-width"  ng-submit="register()">
+    <div class="row">
+      <div class="input-field col s12">
+        <i class="material-icons prefix">person</i>
+        <input  ng-model = "firstname" placeholder = "First Name" type="text" class="validate">
+      </div>
+      <div class="input-field col s12">
+        <i class="material-icons prefix">person</i> 
+        <input  ng-model = "lastname" placeholder = "Last Name" type="text" class="validate">
+      </div>
+      <div class="input-field col s12">
+             <i class="material-icons prefix icon-color">group</i>
+                 <md-select ng-model="gender" placeholder="Gender" class="md-no-underline">
+                     <md-option value="male">Male</md-option>
+                     <md-option value="female">Female</md-option>
+                     <md-option value="other">Other</md-option>
+                 </md-select>    
+           </div>
+      <div class="input-field col s12">
+        <i class="material-icons prefix">mail</i>
+        <input  ng-model = "email" placeholder = "Email Address" type="text" class="validate">
+      </div>
+      <div class="input-field col s12">
+        <i class="material-icons prefix">phone</i>
+        <input ng-model = "phone" placeholder = "Phone" type="tel" class="validate">
+      </div>
+      <div class="input-field col s12">
+        <i class="material-icons prefix">lock</i>
+        <input  type="password" placeholder = "Password" class="validate">
+      </div>
+      <div class="input-field col s12">
+        <i class="material-icons prefix">lock</i>
+        <input ng-model = "password" placeholder = "Confirm Password" type="password" class="validate">
+      </div>
+    </div>
+      <button class="btn waves-effect waves-light sign-up-buttom" type="submit" name="action">Sign Up <i class="material-icons right">send</i></button>
+  </form>
+  <div class="back-button"><a href="#!sign-in"> Back</a></div>
+</div>
+
+</div>

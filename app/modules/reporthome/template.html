@@ -1,0 +1,64 @@
+<div class="jumbotron jumbotron-fluid bg-light" ng-init = "load()">
+	<h6>REPORTS</h6>
+	<hr/>
+		<!-- <div class="row"> 
+			<div class="col s12 m4" ng-repeat="x in chart_data">
+				<div class="info-box bg-blue white-text">
+					<a ng-click="view(x.id)" style="color: white;" href="">
+						<div class="icon">
+							<i class="material-icons">insert_chart</i>
+						</div>
+						<div class="content">
+							<div class="white-text" style="font-size: 20px">{{x.name}}
+							<a ng-click="edit(x.id)"  href="" id="edit" class="icon" style="width: 0;height: 0;background-color: rgba(0, 0, 0, 0);">
+								<i class="material-icons" style="font-size: 20px;line-height: 25px;" title="Edit" data-toggle="tooltip" tooltip>edit</i>
+							</a>
+							</div>
+						</div>
+					</a>
+				</div>
+			</div>
+		</div> -->
+	<div ng-repeat='x in chart_data.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage))'>
+		<table>
+			<tr>
+				<td style = "font-size: 14px;">{{x.module_name}}</td>
+				
+				<td style="float:right">
+					
+						<div>
+						<span>
+							<a class="btn-floating yellow darken-4" style="cursor: pointer;" ng-click="view(x.id)" href="">
+								<i class="material-icons">sort</i>
+							</a>
+						</span>
+						<span ng-if="currentUserRole == 'admin' || currentUserRole == 'editor'">
+							<a class="btn-floating green" ng-click="edit(x.id)"  href="" id="edit">
+								<i class="material-icons">mode_edit</i>
+							</a>
+						</span>
+						<span ng-if="currentUserRole == 'admin' || currentUserRole == 'creator' || currentUserRole == 'editor'">
+							<a class="btn-floating red" href="" ng-click="launchDelete(x.id)">
+								<i class="material-icons">delete</i>
+							</a>
+						</span>
+						<!--<span><a class="btn-floating blue"><i class="material-icons">attach_file</i></a></span>-->
+					</div>
+
+					<!--<a class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">add</i></a>-->
+				</td>
+			</tr>
+		</table>
+	</div>
+	
+	<modal options="modalOptions"></modal>
+
+		<div class="fixed-action-btn " ng-if="currentUserRole == 'admin' || currentUserRole == 'creator'">
+				<a class="btn-floating btn-large blue" href="#!/report_data"><i class="material-icons">add</i></a>
+		  </div>
+</div>
+<center>
+	 
+		<pagination total-items="totalItems"  ng-show = "data.list.length>10" class="pagination-sm" ng-model="currentPage" max-size="maxSize" boundary-links="true" rotate="false" num-pages="numPages" items-per-page="itemsPerPage"></pagination>
+	
+	</center>

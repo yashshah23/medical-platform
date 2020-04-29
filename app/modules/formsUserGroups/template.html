@@ -1,0 +1,73 @@
+<div>
+    
+        <h6>USER GROUP</h6>
+        <hr/>
+        <div class="row" style="margin-left: -10px;">
+                    <div class=" input-field col s6">
+                        <input ng-hide="data.list.length==0" type="text" ng-model="search" placeholder="Search by User Group">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class=" input-field col s6">
+                        <md-input-container class="fill-width" style="margin-top:11px;">
+                            <md-select style = "margin-left: -12px;" ng-model="searchstatus" ng-hide="data.list.length==0" placeholder="All">
+                                <md-option ng-value="">All</md-option>
+                                <md-option ng-value="0">Inactive</md-option>
+                                <md-option ng-value="1">Active</md-option>
+                            </md-select>
+                        </md-input-container>
+                    </div>
+                </div>
+        <table>
+            <thead>
+                
+            </thead>
+    
+            <tbody ng-if="!showActionDiv">
+                <tr ng-repeat='x in data.list.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage)) | filter : {title:search} | filter : {status:searchstatus}'>
+                    <td style = "font-size: 14px;">
+                    	{{x.title}}
+                    </td>
+    
+                    <td style = "font-size: 14px;">
+                    	{{x.status ? "Active" : "Inactive"}}
+                    </td>
+                    <td style="float:right;font-size: 14px;" ng-if="roleOfCurrentUser">
+                        <div>
+                        	<span>
+								<abbr title="View">
+								<a class="btn-floating yellow darken-4 w3-tooltip" href="#!forms-usergroups/{{x.id}}">
+									<i class="material-icons">sort</i>
+								</a></abbr>
+							</span>
+                            <span>
+                                <abbr title="Edit"><a class="btn-floating green" href="#!forms-usergroups/{{x.id}}/edit">
+                                    <i class="material-icons">mode_edit</i>
+                                </a></abbr>
+                            </span>
+                            <span>
+                                <abbr title="Delete"><a class="btn-floating red" href="" ng-click="launchDelete(x)">
+                                    <i class="material-icons">delete</i>
+                                </a></abbr>
+                            </span>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    
+        <modal options="modalOptions"></modal>
+    
+        <!-- Add Button -->
+        <div class="fixed-action-btn" ng-if="roleOfCurrentUser">
+            <abbr title="Add"><a class="btn-floating btn-large teal" href="#!forms-usergroups/add">
+                <i class="large material-icons">add</i>
+            </a></abbr>
+        </div>
+    
+    </div>
+    <center>
+	 
+            <pagination total-items="totalItems"  ng-show = "data.list.length>10" class="pagination-sm" ng-model="currentPage" max-size="maxSize" boundary-links="true" rotate="false" num-pages="numPages" items-per-page="itemsPerPage"></pagination>
+        
+        </center>

@@ -1,0 +1,33 @@
+
+	<div class="content-section-bx" ng-init = "load()">
+		<h2>
+			<em>
+				Near By Store
+			</em>
+		</h2>
+
+		
+		<div class= "header-report">
+		<div class= "search-class">
+		<div class="wrap wrap-order-medicine">
+			<div class="search">
+				<input type="text" ng-blur = "searching()" ng-model = "srch" class="searchTerm" placeholder="Search Store...">
+				<i class="fa fa-search search-icon"></i>
+			</div>
+		</div>
+		<a href= "#"> <i class="fas fa-sort-amount-down"></i></a>
+		</div>
+					<div class= "listing" ng-repeat = "x in stores">
+						<div class= "left-date nearby-content">
+							<h2 class= "nearby-h2">{{x.name}}</h2>
+							<h3 class= "nearby-h3">{{x.type}}</h3>
+							<h4 class= "nearby-h4">{{x.address}}</h4>
+							<em class= "nearby-em"> Opens <i>{{x.opens}}</i> . Closes <i>{{x.closes}}</i></em>
+						</div>
+						<div class= "right-icon right-nearby">
+							<a href= ""><i class="fas fa-directions"><span>Directions</span></i></a>
+						</div>
+					</div>
+			</div>
+	</div>
+	

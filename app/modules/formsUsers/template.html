@@ -1,0 +1,80 @@
+<div>
+	<h6>USERS</h6>
+	<hr/>
+<button>
+	<a href = "#!addtests">
+		Add Lab Tests
+	</a>
+</button> <br>
+<button>
+	<a href = "#!addlabs">
+		Add Labs
+	</a>
+</button>
+	<div class="row" style="margin-left: -10px;">
+				<div class=" input-field col s6">
+					<input style = "margin-left: 14px;" ng-hide="data.list.length==0" type="text" ng-model="searchUsers" placeholder="Search by User">
+				</div>
+			</div>
+			<div class="row">
+				<div class=" input-field col s6">
+					<md-input-container class="fill-width" style="margin-top:11px;">
+						<md-select ng-hide="data.list.length==0" ng-model="searchrole" placeholder="All">
+							<md-option ng-value="">All</md-option>
+							<md-option ng-value="opt.title" ng-repeat="opt in roles track by opt.title">{{ opt.title }}</md-option>
+						</md-select>
+					</md-input-container>
+				</div>
+			</div>
+	<table>
+		<thead>
+			
+		</thead>
+		<tbody>
+			<tr ng-repeat='x in data.list.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage)) | filter : {first_name:searchUsers} | filter : {role : searchrole}'>
+				<td style = "font-size: 14px;" ng-if="roleOfCurrentUser && x.role != 'superadmin'">
+					<a href='#!forms-users/{{x.id}}'>
+						<span ng-if="x.photo">
+							<img src="{{x.photo}}" alt="{{x.first_name + ' ' + x.last_name}}" height="42" width="42">
+						</span>
+						<span ng-if="!x.photo">
+							<img src="images/user.png" alt="{{x.first_name + ' ' + x.last_name}}" height="42" width="42">
+						</span>
+					</a>
+				</td>
+				<td style = "font-size: 14px;" ng-if="roleOfCurrentUser && x.role != 'superadmin'">{{x.first_name + ' ' + x.last_name + ' (' + x.email + ')' }}</td>
+				<td style = "font-size: 14px;"ng-if="roleOfCurrentUser && x.role != 'superadmin'">{{x.role}}</td>
+				<td style = "font-size: 14px;" ng-if="roleOfCurrentUser && x.role != 'superadmin'">
+					{{x.is_active ? "Active" : "Inactive"}}
+				</td>
+				<td ng-if="roleOfCurrentUser && x.role != 'superadmin'" style="float:right">
+					<div ng-if="roleOfCurrentUser && x.role != 'superadmin'">
+						<span>
+							<abbr title="Edit"><a class="btn-floating green" href="#!forms-users/{{x.id}}/edit">
+								<i class="material-icons">mode_edit</i>
+							</a></abbr>
+						</span>
+						<span>
+							<abbr title="Delete"><a class="btn-floating red" href="" ng-click="launchDelete(x)">
+								<i class="material-icons">delete</i>
+							</a></abbr>
+						</span>
+					</div>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+
+	<modal options="modalOptions"></modal>
+
+	<!-- Add Button -->
+	<div class="fixed-action-btn" ng-if="roleOfCurrentUser">
+		<abbr title="Add"><a class="btn-floating btn-large teal" href="#!forms-users/add">
+			<i class="large material-icons">add</i>
+		</a></abbr>
+	</div>
+
+</div>
+	<center>
+		<pagination total-items="totalItems"  ng-show = "data.list.length>10" class="pagination-sm" ng-model="currentPage" max-size="maxSize" boundary-links="true" rotate="false" num-pages="numPages" items-per-page="itemsPerPage"></pagination>
+	</center>

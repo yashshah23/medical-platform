@@ -1,0 +1,56 @@
+
+<div ng-init="load()" class="card-panel">
+	<h6>USER GROUP DETAILS</h6>
+	<hr/>
+	<div class="row">
+		<form class="col s12">
+			<div class="row">
+				<div class="input-field col s8">
+					<input id="title" type="text" class="validate" ng-model="data.title">
+					<label for="title">Title</label>
+				</div>
+
+				<div class="input-field col s4" style="padding-top: 28px !important;">
+					<input id="status" ng-value="data.status" type="checkbox" ng-model="data.status" ng-checked="data.status" > IsActive 
+				</div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <input type="text" id="people" class="autocomplete" ng-model = "people" ng-blur = "checkNewEntry(people)" autofocus>
+                    <label for="autocomplete-input">People</label>
+                </div>
+
+                <!-- Start Updated by Anjana -->
+
+                <div ng-if="x[0].first_name && x" ng-show="id" class="chip" id="ss" ng-repeat="x in selectedPeople track by $index">
+                    <img src="images/user.png">
+                    <span>{{x[0].first_name + ' ' + x[0].last_name + '' + ' (' + x[0].role + ')'}}</span>
+                    <i class="close material-icons" ng-click="unselectPerson(x)">close</i>
+                </div>
+                <div ng-if="!x[0].first_name && x" ng-show="id" class="chip" id="ss" ng-repeat="x in selectedPeople track by $index">
+                    <img src="images/user.png">
+                    <span ng-if="!x[0].first_name && x"> {{x.first_name + ' ' + x.last_name + '' + ' (' + x.role + ')'}}</span>
+                    <i class="close material-icons" ng-click="unselectPerson(x)">close</i>
+                </div>
+                <div ng-if="!x[0].first_name && x" ng-show="!id" class="chip" id="ss" ng-repeat="x in selectedPeople track by $index">
+                    <img src="images/user.png">{{x.first_name + ' ' + x.last_name + ' (' + x.role + ')'}}
+                    <i class="close material-icons" ng-click="unselectPerson(x)">close</i>
+                </div>
+
+            </div>
+			
+		</form>
+
+		<div class="fixed-action-btn">
+			<a class="btn-floating btn-large teal" href="">
+				<i class="large material-icons">menu</i>
+			</a>
+			<ul>
+				<li><abbr title="Cancel"><a class="btn-floating yellow darken-4" ng-click="cancelForm()"><i class="material-icons">cancel</i></a></abbr></li>
+				<li ng-show="!id"><abbr title="Save"><a class="btn-floating green darken-4" ng-click="save()"  ng-disabled="isDisabled"><i class="material-icons">save</i></a></abbr></li>
+				<li ng-show="id"><abbr title="Save"><a class="btn-floating green btn tooltipped" ng-click="editGroup()" ><i class="material-icons">save</i></a></abbr></li>
+			</ul>
+		</div>
+		<modal options="modalOptions"></modal>
+	</div>
+</div>

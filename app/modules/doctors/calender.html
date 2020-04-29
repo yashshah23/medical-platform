@@ -1,0 +1,25 @@
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">	
+	
+	<div class="container" ng-init = "load()">
+		<div ng-repeat = "x in ardate" class="row row-striped">
+			<div class="col-2 text-right">
+				<h1 class="display-4"><div class="badge badge-secondary">{{x.daydate}}</div></h1>
+				<h2>{{x.month}}</h2>
+			</div>
+			<div class="col-10">
+				<h3 class="text-uppercase"><strong>{{x.name}}</strong></h3>
+				<ul class="list-inline">
+				    <li class="list-inline-item"><i class="fa fa-calendar-o" aria-hidden="true"></i> {{x.day}}</li>
+					<li class="list-inline-item"><i class="fa fa-clock-o" aria-hidden="true"></i> {{x.fromtime}} - {{x.totime}}</li>
+				</ul>
+				<p>Name : {{x.usrname}} &nbsp;&nbsp;&nbsp;&nbsp;   Phone: {{x.phone}}</p>
+				<p ng-if = "x.typeid == 2">Address : {{x.address}}</p>
+			</div>
+		</div>
+	</div>
+	
